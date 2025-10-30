@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/vl")
+@RequestMapping("/api/v1")
 public class testController {
     @GetMapping("/testing")
     public Map<String, String> testing() {
-        return Map.of("status", "OK", "version", "vl");
+        return Map.of("status", "OK", "version", "v1");
     }
 }
