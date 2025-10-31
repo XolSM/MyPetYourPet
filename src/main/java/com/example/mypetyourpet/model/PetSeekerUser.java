@@ -1,12 +1,18 @@
 package com.example.mypetyourpet.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
+@Table(name = "customer")
 public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
+
+    @Embedded
     protected CustomerInfo customerInfo;
+
+    @Column(name="customerType")
+    private String customerType = "PetSeeker";
 
     public PetSeekerUser() {}
     public PetSeekerUser(Long id, String fullName, String email, CustomerInfo customerInfo) {

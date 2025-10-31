@@ -1,9 +1,14 @@
 package com.example.mypetyourpet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "supportUser")
 public class AdministratorUser extends User implements Administrator{
+    @Column(name="userType")
+    private String userType = "Administrator";
 
     public AdministratorUser() {}
 

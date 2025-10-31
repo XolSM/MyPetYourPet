@@ -1,9 +1,17 @@
 package com.example.mypetyourpet.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "supportUser")
 public class HelpDeskUser extends User implements HelpDesk{
+
+    @Column(name="userType")
+    private String userType = "HelpDesk";
+
 
     public HelpDeskUser(){}
     public HelpDeskUser(Long id, String fullName, String email) {
