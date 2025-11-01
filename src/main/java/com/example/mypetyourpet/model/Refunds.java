@@ -16,12 +16,11 @@ public class Refunds {
     private double refundAmount;
     private String reason;
     private Date refundDate;
-    private String refundStatus;
 
     public Refunds() {}
     public Refunds(Long refundId, int claimId, int petResId, Long transactionId,
                    String refundType, double refundAmount, String reason,
-                   Date refundDate, String refundStatus) {
+                   Date refundDate) {
         this.refundId = refundId;
         this.claimId = claimId;
         this.petResId = petResId;
@@ -30,7 +29,6 @@ public class Refunds {
         this.refundAmount = refundAmount;
         this.reason = reason;
         this.refundDate = refundDate;
-        this.refundStatus = refundStatus;
     }
 
     public void setRefundId(Long id) {
@@ -97,11 +95,4 @@ public class Refunds {
         this.refundDate = refundDate;
     }
 
-    public String getRefundStatus() {
-        return refundStatus;
-    }
-
-    public void setRefundStatus(String refundStatus) {
-        this.refundStatus = refundStatus;
-    }
-}
+ }
