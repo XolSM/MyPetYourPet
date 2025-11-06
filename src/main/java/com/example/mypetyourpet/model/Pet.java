@@ -1,13 +1,16 @@
 package com.example.mypetyourpet.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 
 @Entity
-@Table(name = "pets")
+@Table(name = "pets",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"petName", "customerId"}, name = "petName_owner")
+        })
 public class Pet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
     private String petName;
     private int petAge;
@@ -20,12 +23,13 @@ public class Pet {
     private String profilePicture;
     private Long customerId;
 
+    private PetProfileStatus petProfileStatus;
+
     public Pet(){}
-    public Pet(Long petId, String petName, int petAge, boolean petGender,
+    public Pet(String petName, int petAge, boolean petGender,
                String petBreed, String petBehavior, boolean dewormingUpToDate,
                boolean vaccinationUpToDate, double petFee, String profilePicture,
-               Long customerId){
-        this.petId = petId;
+               Long customerId, PetProfileStatus petProfileStatus){
         this.petName = petName;
         this.petAge = petAge;
         this.petGender = petGender;
@@ -36,19 +40,22 @@ public class Pet {
         this.petFee = petFee;
         this.profilePicture = profilePicture;
         this.customerId = customerId;
+        this.petProfileStatus = petProfileStatus;
     }
 
-    public void updatePetProfile(){
-
-
-
-    }
-
-    public void deletePetProfile(){
-
-
-
-    }
+//    public void updatePetProfile(Long petId, String petBehavior, boolean dewormingUpToDate,
+//                                 boolean vaccinationUpToDate, double petFee,
+//                                 String profilePicture, PetProfileStatus petProfileStatus){
+//
+//
+//
+//    }
+//
+//    public void deletePetProfile(){
+//
+//
+//
+//    }
 
 
     public void setPetId(Long id) {
@@ -137,5 +144,13 @@ public class Pet {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public PetProfileStatus getPetProfileStatus() {
+        return petProfileStatus;
+    }
+
+    public void setPetProfileStatus(PetProfileStatus petProfileStatus) {
+        this.petProfileStatus = petProfileStatus;
     }
 }
