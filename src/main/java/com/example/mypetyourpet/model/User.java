@@ -9,10 +9,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+    @Column(name = "full_name")
     protected String fullName;
 
     protected String email;
 
+    @Column(name = "profile_picture")
     protected String profilePicture;
 
     public User() {}
