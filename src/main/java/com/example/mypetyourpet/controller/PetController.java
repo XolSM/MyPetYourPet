@@ -8,6 +8,7 @@ import com.example.mypetyourpet.service.PetService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,31 +17,112 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/pets") // or /api/pets or /pets /api/v1/pets
-//@RequiredArgsConstructor
+@RequestMapping("/api/v1/pets") // or /api/pets
+@RequiredArgsConstructor
 public class PetController {
     private final PetService petService;
     private final FileStorageService fileStorageService;
 
-    @PostMapping("/{petId}/petPicture")
-    public ResponseEntity<Map<String,String>> uploadPetPicture(@PathVariable Long petId,
-                                                               @RequestParam("file") MultipartFile file) {
-        String imageUrl = fileStorageService.save(file, petId);
+//    @PostMapping("/{petId}/petPicture")
+//    public ResponseEntity<Map<String,String>> uploadPetPicture(@PathVariable Long petId,
+//                                                               @RequestParam("file") MultipartFile file) {
+//        String imageUrl = fileStorageService.save(file, petId);
+//        petService.updatePetPictureUrl(petId, imageUrl);
+//
+//        return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
+//    }
+    @PostMapping(value = "/pets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createPet(@RequestPart("Pet") Pet pet,
+                                         @RequestPart("file") MultipartFile file) {
+        if(file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Pet picture" +
+                    "is required."));
+        }
+
+        Long maxFileSize = 2*1024*1024L;
+        if(file.getSize() == maxFileSize) {
+            return ResponseEntity.badRequest().body(Map.of("error", "File size is too" +
+                    " large, should be less than 2MB."));
+        }
+
+        String contentType = file.getContentType();
+        if(contentType == null || !contentType.equalsIgnoreCase("image/jpeg")
+                || !contentType.equalsIgnoreCase("image/png")
+                || !contentType.equalsIgnoreCase("image/jpg")) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid file " +
+                    "type, only JPEG, PNG, JPG are supported."));
+        }
+        Pet savedPet  = petService.createPet(pet);
+        String imageUrl = fileStorageService.save(file, savedPet.getPetId());
+
+        savedPet.setProfilePicture(imageUrl);
+
+        return ResponseEntity.ok(savedPet);
+    }
+//    @PostMapping("/{petId}/petPicture")
+//    public ResponseEntity<?> uploadPetPicture(@PathVariable Long petId,
+//                                              @RequestParam("file") MultipartFile file) {
+//        if(file.isEmpty()) {
+//            return ResponseEntity.badRequest().body(Map.of("error", "No file uploaded."));
+//        }
+//
+//        Long maxFileSize = 2*1024*1024L;
+//        if(file.getSize() == maxFileSize) {
+//            return ResponseEntity.badRequest().body(Map.of("error", "File size is too" +
+//                    " large, should be less than 2MB."));
+//        }
+//
+//        String contentType = file.getContentType();
+//        if(contentType == null || !contentType.equalsIgnoreCase("image/jpeg")
+//        || !contentType.equalsIgnoreCase("image/png")
+//        || !contentType.equalsIgnoreCase("image/jpg")) {
+//            return ResponseEntity.badRequest().body(Map.of("error", "Invalid file " +
+//                    "type, only JPEG, PNG, JPG are supported."));
+//        }
+//        String imageUrl = fileStorageService.save(file, petId);
+//        petService.updatePetPictureUrl(petId, imageUrl);
+//
+//        return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
+//    }
+
+    @PostMapping(value = "/{petId}/petPicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updatePetPicture(@PathVariable Long petId,
+                                              @RequestParam("file") MultipartFile file) {
+        if(file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "No file uploaded."));
+        }
+
+        Long maxFileSize = 2*1024*1024L;
+        if(file.getSize() == maxFileSize) {
+            return ResponseEntity.badRequest().body(Map.of("error", "File size is too" +
+                    " large, should be less than 2MB."));
+        }
+
+        String contentType = file.getContentType();
+        if(contentType == null || !contentType.equalsIgnoreCase("image/jpeg")
+                || !contentType.equalsIgnoreCase("image/png")
+                || !contentType.equalsIgnoreCase("image/jpg")) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid file " +
+                    "type, only JPEG, PNG, JPG are supported."));
+        }
+
+        Pet petToUpdate = petService.getPetById(petId);
+        String imageUrl = fileStorageService.update(file, petId, petToUpdate.getProfilePicture());
         petService.updatePetPictureUrl(petId, imageUrl);
 
         return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
     }
 
-    public PetController(PetService petService, FileStorageService fileStorageService) {
-        this.petService = petService;
-        this.fileStorageService = fileStorageService;
-    }
+//    public PetController(PetService petService, FileStorageService fileStorageService) {
+//        this.petService = petService;
+//        this.fileStorageService = fileStorageService;
+//    }
 
-    @PostMapping("/pets")
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-        Pet savedPet  = petService.createPet(pet);
-        return ResponseEntity.ok(savedPet);
-    }
+//    @PostMapping("/pets")
+//    public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
+//        Pet savedPet  = petService.createPet(pet);
+//        return ResponseEntity.ok(savedPet);
+//    }
 
     //SHOULD WE CREATE DIFFERENT METHODS ??
     // TO GET ALL CUSTOMER PETS TO LIST IN THEIR PAGE

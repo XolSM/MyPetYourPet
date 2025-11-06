@@ -12,17 +12,27 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
+    @Column(nullable = false)
     private String petName;
+    @Column(nullable = false)
     private int petAge;
+    @Column(nullable = false)
     private boolean petGender;
+    @Column(nullable = false)
     private String petBreed;
+    @Column(nullable = false)
     private String petBehavior;
+    @Column(nullable = false)
     private boolean dewormingUpToDate;
+    @Column(nullable = false)
     private boolean vaccinationUpToDate;
+    @Column(nullable = false)
     private double petFee;
+    @Column(nullable = true)
     private String profilePicture;
+    @Column(nullable = false)
     private Long customerId;
-
+    @Column(nullable = false)
     private PetProfileStatus petProfileStatus;
 
     public Pet(){}

@@ -14,13 +14,13 @@ import java.util.List;
 
 @Service
 @Transactional
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
 
-    public PetService(PetRepository petRepository) {
-        this.petRepository = petRepository;
-    }
+//    public PetService(PetRepository petRepository) {
+//        this.petRepository = petRepository;
+//    }
 
     public Pet createPet(Pet pet){
         if(petRepository.findPetByPetNameAndCustomerId(pet.getPetName(), pet.getCustomerId()).isPresent()){
@@ -79,6 +79,13 @@ public class PetService {
             throw new EntityNotFoundException("Pet with id " + petId + " does not exist");
         }
         petRepository.deleteById(petId);
+    }
+
+    public Pet getPetById(Long petId){
+        if(!petRepository.findPetByPetId(petId).isPresent()){
+            throw new EntityNotFoundException("Pet with id " + petId + " does not exist");
+        }
+        return petRepository.findPetByPetId(petId).get();
     }
 
 //    public Pet updatePet(Long petId, String petName, String petBehavior, boolean dewormingUpToDate,
