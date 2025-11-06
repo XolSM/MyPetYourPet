@@ -3,12 +3,14 @@ package com.example.mypetyourpet.controller;
 import com.example.mypetyourpet.model.Pet;
 import com.example.mypetyourpet.model.PetProfileStatus;
 import com.example.mypetyourpet.repository.PetRepository;
+import com.example.mypetyourpet.service.FileStorageService;
 import com.example.mypetyourpet.service.PetService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -18,9 +20,20 @@ import java.util.Map;
 //@RequiredArgsConstructor
 public class PetController {
     private final PetService petService;
+    private final FileStorageService fileStorageService;
 
-    public PetController(PetService petService) {
+    @PostMapping("/{petId}/petPicture")
+    public ResponseEntity<Map<String,String>> uploadPetPicture(@PathVariable Long petId,
+                                                               @RequestParam("file") MultipartFile file) {
+        String imageUrl = fileStorageService.save(file, petId);
+        petService.updatePetPictureUrl(petId, imageUrl);
+
+        return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
+    }
+
+    public PetController(PetService petService, FileStorageService fileStorageService) {
         this.petService = petService;
+        this.fileStorageService = fileStorageService;
     }
 
     @PostMapping("/pets")

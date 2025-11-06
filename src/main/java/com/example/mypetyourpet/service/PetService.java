@@ -5,6 +5,7 @@ import com.example.mypetyourpet.model.PetProfileStatus;
 import com.example.mypetyourpet.repository.PetRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
+//@RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
 
@@ -63,12 +65,12 @@ public class PetService {
         return petRepository.save(existingPet);
     }
 
-    public Pet updatePetPicture(Long petId, String profilePicture){
-        if(!petRepository.findPetByCustomerId(petId).isPresent()){
+    public Pet updatePetPictureUrl(Long petId, String imageUrl){
+        if(!petRepository.findPetByPetId(petId).isPresent()){
             throw new EntityNotFoundException("Error finding your pet");
         }
         Pet existingPet = petRepository.findPetByCustomerId(petId).get();
-        existingPet.setProfilePicture(profilePicture);
+        existingPet.setProfilePicture(imageUrl);
         return petRepository.save(existingPet);
     }
 
