@@ -1,20 +1,20 @@
 services:
-  spring-app:
-    build: .
-#    container_name: spring-backend
-    ports:
-      - "8082:8080"
-#    environment:
-#      - APP_UPLOAD_DIR=/app/uploads
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3307/mypetyourpet
-#      - SPRING_DATASOURCE_USERNAME=root
-#      - SPRING_DATASOURCE_PASSWORD=root
-    volumes:
-      - mypetyourpet_pictures:/app/uploads
-
-    depends_on:
-      - mysql
-
+#  spring-app:
+#    build: .
+##    container_name: spring-backend
+#    ports:
+#      - "8082:8080"
+##    environment:
+##      - APP_UPLOAD_DIR=/app/uploads
+##      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3307/mypetyourpet
+##      - SPRING_DATASOURCE_USERNAME=root
+##      - SPRING_DATASOURCE_PASSWORD=root
+#    volumes:
+#      - mypetyourpet_pictures:/app/uploads
+#
+#    depends_on:
+#      - mysql
+#
 
   mysql:
     image: mysql:8
@@ -36,5 +36,5 @@ services:
 
 volumes:
   mypetyourpet_db:
-  mypetyourpet_pictures:
+#  mypetyourpet_pictures:
 

@@ -28,9 +28,14 @@ public class Pet {
     private boolean vaccinationUpToDate;
     @Column(nullable = false)
     private double petFee;
-    @Column(nullable = true)
-    private String profilePicture;
     @Column(nullable = false)
+    private String profilePictureUrl;
+    @Column(nullable = false)
+    private String profilePicturePublicId; //cloudinary
+    @Column(nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pet_user"))
+//    @OnDelete(action = OnDeleteAction.CASCADE) // Hibernate-level cascade
     private Long customerId;
     @Column(nullable = false)
     private PetProfileStatus petProfileStatus;
@@ -38,7 +43,7 @@ public class Pet {
     public Pet(){}
     public Pet(String petName, int petAge, boolean petGender,
                String petBreed, String petBehavior, boolean dewormingUpToDate,
-               boolean vaccinationUpToDate, double petFee, String profilePicture,
+               boolean vaccinationUpToDate, double petFee, String profilePicture, String profilePicturePublicId,
                Long customerId, PetProfileStatus petProfileStatus){
         this.petName = petName;
         this.petAge = petAge;
@@ -48,8 +53,26 @@ public class Pet {
         this.dewormingUpToDate = dewormingUpToDate;
         this.vaccinationUpToDate = vaccinationUpToDate;
         this.petFee = petFee;
-        this.profilePicture = profilePicture;
+        this.profilePictureUrl = profilePicture;
+        this.profilePicturePublicId = profilePicturePublicId;
         this.customerId = customerId;
+        this.petProfileStatus = petProfileStatus;
+    }
+
+    public Pet(String petName, int petAge, boolean petGender,
+               String petBreed, String petBehavior, boolean dewormingUpToDate,
+               boolean vaccinationUpToDate, double petFee, String profilePicture, String profilePicturePublicId,
+            PetProfileStatus petProfileStatus){
+        this.petName = petName;
+        this.petAge = petAge;
+        this.petGender = petGender;
+        this.petBreed = petBreed;
+        this.petBehavior = petBehavior;
+        this.dewormingUpToDate = dewormingUpToDate;
+        this.vaccinationUpToDate = vaccinationUpToDate;
+        this.petFee = petFee;
+        this.profilePictureUrl = profilePicture;
+        this.profilePicturePublicId = profilePicturePublicId;
         this.petProfileStatus = petProfileStatus;
     }
 
@@ -141,11 +164,11 @@ public class Pet {
     }
 
     public String getProfilePicture() {
-        return profilePicture;
+        return profilePictureUrl;
     }
 
     public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+        this.profilePictureUrl = profilePicture;
     }
 
     public Long getCustomerId() {
@@ -162,5 +185,13 @@ public class Pet {
 
     public void setPetProfileStatus(PetProfileStatus petProfileStatus) {
         this.petProfileStatus = petProfileStatus;
+    }
+
+    public String getProfilePicturePublicId() {
+        return profilePicturePublicId;
+    }
+
+    public void setProfilePicturePublicId(String profilePicturePublicId) {
+        this.profilePicturePublicId = profilePicturePublicId;
     }
 }
