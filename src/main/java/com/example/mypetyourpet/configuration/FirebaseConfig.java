@@ -1,4 +1,4 @@
-package com.example.mypetyourpet.config;
+package com.example.mypetyourpet.configuration;
 
 import org.springframework.context.annotation.Configuration;
 
