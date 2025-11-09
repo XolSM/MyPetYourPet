@@ -1,6 +1,6 @@
 package com.example.mypetyourpet.model;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -9,20 +9,26 @@ public class CustomerInfo {
 
    // private String customerType; // PetOwner, PetSeeker
 
+    @Column(name = "governmentid")
     private String governmentID;
 
     private int age;
 
     private String gender;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "register_date")
     private Date registerDate;
 
     private String location;
 
+    @Column(name = "profile_status")
     private String profileStatus; // Pending Verification, Verified, Not Verified, Inactive
 
+    @Column(name = "rating_avg")
     private double ratingAvg; // 1-5 scale
 
+    @Column(name = "rating_comments")
     private String ratingComments;
 
     public CustomerInfo() {}

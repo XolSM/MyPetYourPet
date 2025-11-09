@@ -30,17 +30,38 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
     }
 
     @Override
-    public void createAccount() {
+    public void createAccount(long uid, String fullName, String email, String profilePic,
+                              int age, String gender, String governmentId, String location, String status,
+                              double ratingAvg, Date registerDate, String customerType) {
+
+        this.setFullName(fullName); //calling the methods in the User class
+        this.setEmail(email);
+
+        //creating a customer info instance with the data
+        this.customerInfo = new CustomerInfo(
+                governmentId, age, gender, registerDate, location, status
+                //I may have to add ratings and comments and set it as null and 0 when the customer is first
+                //created
+        );
+        this.customerType = customerType != null ? customerType : "PetSeeker";
+        //Need to create enums later for status
 
     }
 
     @Override
     public void viewProfile() {
+        /*
+        I need the profile controller
+        profile service
+        Both Petowner and petseeker repositories
+        dto to define what is actually getting sent (Profile response)
+         */
 
     }
 
     @Override
     public void deleteAccount() {
+
 
     }
 
