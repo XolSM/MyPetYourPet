@@ -7,12 +7,14 @@ import com.example.mypetyourpet.service.FileStorageService;
 import com.example.mypetyourpet.service.PetService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,7 @@ import java.util.Map;
 public class PetController {
     private final PetService petService;
     private final FileStorageService fileStorageService;
+    private final PetRepository petRepository;
 
 //    @PostMapping("/{petId}/petPicture")
 //    public ResponseEntity<Map<String,String>> uploadPetPicture(@PathVariable Long petId,
@@ -31,7 +34,7 @@ public class PetController {
 //
 //        return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
 //    }
-    @PostMapping(value = "/pets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/pets")
     public ResponseEntity<?> createPet(@RequestPart("Pet") Pet pet,
                                          @RequestPart("file") MultipartFile file) {
         if(file.isEmpty()) {
@@ -53,12 +56,56 @@ public class PetController {
                     "type, only JPEG, PNG, JPG are supported."));
         }
         Pet savedPet  = petService.createPet(pet);
-        String imageUrl = fileStorageService.save(file, savedPet.getPetId());
+        Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+        savedPet.setProfilePicture(uploadResult.get("url"));
+        savedPet.setProfilePicturePublicId(uploadResult.get("publicId"));
 
-        savedPet.setProfilePicture(imageUrl);
-
-        return ResponseEntity.ok(savedPet);
+        return ResponseEntity.ok(savedPet); // or change return type and add
+        //return "redirect:/petProfile/" + petId;
     }
+
+
+//    @PostMapping("/upload-profile")
+//    public String handleUpload(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userId) {
+//        try {
+//            String imageUrl = fileStorageService.uploadFile(file);
+//            Pet pet = petRepository.findById(userId).orElseThrow();
+//            pet.setProfilePicture(imageUrl);
+//            petRepository.save(pet);
+//            return "redirect:/profile/" + userId;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
+//    @PostMapping("/update-profile-image")
+//    public String updateProfileImage(@RequestParam("file") MultipartFile file, @RequestParam("petId") Long petId) {
+//        try {
+//            Pet pet = petRepository.findPetByPetId(petId).orElseThrow();
+//
+//            // Delete old image if it exists
+//            if (pet.getProfilePicturePublicId() != null) {
+//                fileStorageService.deleteOldImage(pet.getProfilePicturePublicId());
+//            }
+//
+//            // Upload new image
+//            Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+//            pet.setProfilePicture(uploadResult.get("url"));
+//            pet.setProfilePicturePublicId(uploadResult.get("publicId"));
+//
+//            petRepository.save(pet);
+//            return "redirect:/profile/" + petId;
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
+
+
+
+
 //    @PostMapping("/{petId}/petPicture")
 //    public ResponseEntity<?> uploadPetPicture(@PathVariable Long petId,
 //                                              @RequestParam("file") MultipartFile file) {
@@ -106,11 +153,19 @@ public class PetController {
                     "type, only JPEG, PNG, JPG are supported."));
         }
 
-        Pet petToUpdate = petService.getPetById(petId);
-        String imageUrl = fileStorageService.update(file, petId, petToUpdate.getProfilePicture());
-        petService.updatePetPictureUrl(petId, imageUrl);
+        Pet petToUpdate = petRepository.findPetByPetId(petId).orElseThrow();
 
-        return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
+        if (petToUpdate.getProfilePicturePublicId() != null) {
+            fileStorageService.deleteOldImage(petToUpdate.getProfilePicturePublicId());
+        }
+
+        Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+        petToUpdate.setProfilePicture(uploadResult.get("url"));
+        petToUpdate.setProfilePicturePublicId(uploadResult.get("publicId"));
+
+        petRepository.save(petToUpdate);
+        return ResponseEntity.ok(Map.of("imageUrl", uploadResult.get("url"))); //OR
+        //return "redirect:/profile/" + petId;
     }
 
 //    public PetController(PetService petService, FileStorageService fileStorageService) {
