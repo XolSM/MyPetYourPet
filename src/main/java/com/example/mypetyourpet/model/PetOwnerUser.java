@@ -29,6 +29,13 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
 
     }
 
+    public CustomerInfo getCustomerInfo() {
+        return customerInfo;
+    }
+    //public void setCustomerInfo(CustomerInfo customerInfo) {}
+
+    public String getCustomerType() {return customerType;}
+
     @Override
     public void createPetProfile() {
 
@@ -74,7 +81,7 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
     }
 
     @Override
-    public void deleteAccount() {
+    public void deleteAccount(String email) {
 
     }
 

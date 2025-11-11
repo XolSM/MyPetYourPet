@@ -1,6 +1,14 @@
 package com.example.mypetyourpet.dto;
 
-public class CustomerProfileViewRequest {
+/*
+public class BaseResponse{}
+public class OwnerResponse  extends BaseResponse{}
+same for Seeker response
+
+if we need different objects for user and seeker
+ */
+
+public class CustomerProfileViewResponse {
 
     private String fullName;
     private String email;
@@ -9,7 +17,8 @@ public class CustomerProfileViewRequest {
     private int phoneNumber; //to be added
     private String gender;
     private String location;
-    private String role;
+    private String status;
+    private String role; //called customerType in the model
 
     public String getFullName() {
         return fullName;
@@ -74,6 +83,11 @@ public class CustomerProfileViewRequest {
     public void setRole(String role) {
         this.role = role;
     }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {this.status = status;}
+
 }
 
 

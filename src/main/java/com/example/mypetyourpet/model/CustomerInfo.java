@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Embeddable
-public class CustomerInfo {
+public class CustomerInfo{
 
    // private String customerType; // PetOwner, PetSeeker
 
