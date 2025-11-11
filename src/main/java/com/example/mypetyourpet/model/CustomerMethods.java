@@ -7,7 +7,7 @@ public interface CustomerMethods {
                               int age, String gender, String govenmentId, String location, String status,
                               double ratingAvg, Date registerDate, String customerType);
     public void viewProfile();
-    public void deleteAccount();
+    public void deleteAccount(String email);
     public void openClaim();
     public void cancelPetReservation();
     public void updateUserProfile();

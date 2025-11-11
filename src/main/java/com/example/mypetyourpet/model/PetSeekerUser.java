@@ -19,7 +19,8 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
         super(id,fullName, email);
         this.customerInfo = customerInfo;
     }
-    public PetSeekerUser(Long id, String fullName, String email, String governmentID,
+    public
+    PetSeekerUser(Long id, String fullName, String email, String governmentID,
                          int age, String gender, Date registerDate, String location,
                          String profileStatus) {
         super(id,fullName, email);
@@ -48,6 +49,9 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
 
     }
 
+    public CustomerInfo getCustomerInfo() {return customerInfo;}
+    public String getCustomerType() {return customerType;}
+
     @Override
     public void viewProfile() {
         /*
@@ -56,12 +60,12 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
         Both Petowner and petseeker repositories
         dto to define what is actually getting sent (Profile response)
          */
-
     }
 
     @Override
-    public void deleteAccount() {
+    public void deleteAccount(String email) {
 
+        //Using one service to delete both accounts.
 
     }
 
