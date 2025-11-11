@@ -2,7 +2,7 @@ package com.example.mypetyourpet.controller;
 
 import com.example.mypetyourpet.dto.CustomerProfileViewResponse;
 import com.example.mypetyourpet.service.CustomerProfileViewService;
-import com.example.mypetyourpet.service.DeleteService;
+import com.example.mypetyourpet.service.DeleteAccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CustomerProfileViewController {
 
     private final CustomerProfileViewService customerProfileViewService; //to view profile
-    private final DeleteService deleteService; //to delete an account
+    private final DeleteAccountService deleteAccountService; //to delete an account
 
-    public CustomerProfileViewController(CustomerProfileViewService customerProfileViewService, DeleteService deleteService) {
+    public CustomerProfileViewController(CustomerProfileViewService customerProfileViewService, DeleteAccountService deleteAccountService) {
         this.customerProfileViewService = customerProfileViewService;
-        this.deleteService = deleteService;
+        this.deleteAccountService = deleteAccountService;
     }
 
 
@@ -41,7 +41,7 @@ public class CustomerProfileViewController {
     @DeleteMapping("/deleteAccount")
     public ResponseEntity<String> deletePetSeekerProfile(@RequestParam String email) {
 
-        deleteService.delete(email);
+        deleteAccountService.delete(email);
         return ResponseEntity.ok("Account deleted Successfully");
     }
 }

@@ -12,4 +12,6 @@ public interface PetSeekerUserRepository extends JpaRepository<PetSeekerUser, Lo
     Optional<PetSeekerUser> findByEmail(String email);
 
     void deleteByEmail(String email); //delete account
+
+
 }

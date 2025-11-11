@@ -5,15 +5,13 @@ import com.example.mypetyourpet.repository.PetSeekerUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
-
 @Service
-public class DeleteService {
+public class DeleteAccountService {
 
     private final PetSeekerUserRepository petSeekerUserRepository;
     private final PetOwnerUserRepository petOwnerUserRepository;
 
-    public DeleteService(PetSeekerUserRepository petSeekerUserRepository, PetOwnerUserRepository petOwnerUserRepository) {
+    public DeleteAccountService(PetSeekerUserRepository petSeekerUserRepository, PetOwnerUserRepository petOwnerUserRepository) {
         this.petSeekerUserRepository = petSeekerUserRepository;
         this.petOwnerUserRepository = petOwnerUserRepository;
     }
