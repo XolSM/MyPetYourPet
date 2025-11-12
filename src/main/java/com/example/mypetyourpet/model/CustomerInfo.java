@@ -15,6 +15,9 @@ public class CustomerInfo{
     private int age;
 
     private String gender;
+    private String phone;
+
+    private String bio;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "register_date")
@@ -33,14 +36,31 @@ public class CustomerInfo{
 
     public CustomerInfo() {}
 
-    public CustomerInfo(String governmentID, int age, String gender,
+    public CustomerInfo(String phone, String governmentID, int age, String gender,
                         Date registerDate, String location, String profileStatus) {
+        this.phone = phone;
         this.governmentID = governmentID;
         this.age = age;
         this.gender = gender;
         this.registerDate = registerDate;
         this.location = location;
         this.profileStatus = profileStatus;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getGovernmentID() {
@@ -106,4 +126,5 @@ public class CustomerInfo{
     public void setRatingComments(String ratingComments) {
         this.ratingComments = ratingComments;
     }
+
 }

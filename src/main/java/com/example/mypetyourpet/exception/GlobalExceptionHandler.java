@@ -23,14 +23,14 @@ public class GlobalExceptionHandler {
 //                causeMessage
 //        );
 //        return new ResponseEntity<>(petCreateError, HttpStatus.BAD_REQUEST);
-        String userMessage = "This Pet is already listed";
+//        String userMessage = "This Pet is already listed";
 
         // Optional: refine message based on cause
 //        if (causeMessage != null && causeMessage.contains("petName_owner")) {
 //            userMessage = "A pet with this name is already registered for this owner.";
 //        }
 
-        return ResponseEntity.badRequest().body(Map.of("error", userMessage));
+        return ResponseEntity.badRequest().body(Map.of("error", causeMessage));
 
     }
 

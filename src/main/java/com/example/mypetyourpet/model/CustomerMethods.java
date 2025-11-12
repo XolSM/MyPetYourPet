@@ -3,9 +3,9 @@ package com.example.mypetyourpet.model;
 import java.util.Date;
 
 public interface CustomerMethods {
-    public void createAccount(long uid, String fullName, String email, String profilePic,
+    public void createAccount(long uid, String fullName, String email, String phone,
                               int age, String gender, String govenmentId, String location, String status,
-                              double ratingAvg, Date registerDate, String customerType);
+                              double ratingAvg, Date registerDate, String customerType, String profilePicture, String profilePicturePublicId);
     public void viewProfile();
     public void deleteAccount(String email);
     public void openClaim();

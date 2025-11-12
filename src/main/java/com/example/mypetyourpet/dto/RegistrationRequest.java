@@ -5,11 +5,46 @@ public class RegistrationRequest {
     private String role;
     private String fullName;
     private String email;
+    private String phone;
     private String governmentId;
     private String location;
     private String gender;
     private String profilePic;
+    private String profilePicturePublicId;
     private Integer age;
+
+    public RegistrationRequest(){ }
+    public RegistrationRequest(String fullName, String email, String phone, int age,String gender,
+                               String governmentId, String location){
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.gender = gender;
+        this.governmentId = governmentId;
+        this.location = location;
+    }
+    public RegistrationRequest(String fullName, String email, String phone, int age,String gender,
+                        String governmentId, String location, String ProfilePic,
+                        String ProfilePicturePublicId){
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.gender = gender;
+        this.governmentId = governmentId;
+        this.location = location;
+        this.profilePic = ProfilePic;
+        this.profilePicturePublicId = ProfilePicturePublicId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getRole() {
         return role;
@@ -65,6 +100,14 @@ public class RegistrationRequest {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public String getProfilePicturePublicId() {
+        return profilePicturePublicId;
+    }
+
+    public void setProfilePicturePublicId(String profilePicturePublicId) {
+        this.profilePicturePublicId = profilePicturePublicId;
     }
 
     public Integer getAge() {

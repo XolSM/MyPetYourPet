@@ -15,7 +15,7 @@ public class HelpDeskUser extends User implements HelpDesk{
 
     public HelpDeskUser(){}
     public HelpDeskUser(Long id, String fullName, String email) {
-        super(fullName, email);
+        super(id, fullName, email);
     }
     @Override
     public void waiveCancellationFee() {
