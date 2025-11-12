@@ -26,38 +26,46 @@ public class PetController {
     private final FileStorageService fileStorageService;
     private final PetRepository petRepository;
 
-    @PostMapping(value = "/createPet2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createPet2(@RequestPart("Pet") Pet pet) {
-        Pet savedPet  = petService.createPet(pet);
-        return ResponseEntity.ok(savedPet); // or change return type and add
-        //return "redirect:/petProfile/" + petId;
-    }
+//    @PostMapping(value = "/createPet2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<?> createPet2(@RequestPart("Pet") Pet pet) {
+//        Pet savedPet  = petService.createPet(pet);
+//        return ResponseEntity.ok(savedPet); // or change return type and add
+//        //return "redirect:/petProfile/" + petId;
+//    }
 
     @PostMapping(value = "/createPet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createPet(@RequestPart("Pet") Pet pet,
                                          @RequestPart("file") MultipartFile file) {
-        if(file.isEmpty()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Pet picture" +
-                    "is required."));
+        if(file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Pet picture is required."));
         }
 
         Long maxFileSize = 2*1024*1024L;
-        if(file.getSize() == maxFileSize) {
-            return ResponseEntity.badRequest().body(Map.of("error", "File size is too" +
-                    " large, should be less than 2MB."));
+        if(file.getSize() > maxFileSize) {
+            return ResponseEntity.badRequest().body(Map.of("error", "File size is too large, should be less than 2MB."));
         }
 
         String contentType = file.getContentType();
-        if(contentType == null || !contentType.equalsIgnoreCase("image/jpeg")
-                || !contentType.equalsIgnoreCase("image/png")
-                || !contentType.equalsIgnoreCase("image/jpg")) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid file " +
-                    "type, only JPEG, PNG, JPG are supported."));
+//        if(!contentType.equalsIgnoreCase("image/jpeg")
+//                || !contentType.equalsIgnoreCase("image/png")
+//                || !contentType.equalsIgnoreCase("image/jpg")) {
+//            return ResponseEntity.badRequest().body(Map.of("error", "Invalid file " +
+//                    "type, only JPEG, PNG, JPG are supported."));
+//        }
+        if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid image format."));
         }
-        Pet savedPet  = petService.createPet(pet);
+
+//        Pet savedPet  = petService.createPet(pet);
+//        Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+//        savedPet.setProfilePicture(uploadResult.get("url"));
+//        savedPet.setProfilePicturePublicId(uploadResult.get("publicId"));
+        Pet tempPet = pet;
         Map<String, String> uploadResult = fileStorageService.uploadFile(file);
-        savedPet.setProfilePicture(uploadResult.get("url"));
-        savedPet.setProfilePicturePublicId(uploadResult.get("publicId"));
+        System.out.println("Cloudinary upload result: " + uploadResult);
+        tempPet.setProfilePicture(uploadResult.get("url"));
+        tempPet.setProfilePicturePublicId(uploadResult.get("publicId"));
+        Pet savedPet  = petService.createPet(tempPet);
 
         return ResponseEntity.ok(savedPet); // or change return type and add
         //return "redirect:/petProfile/" + petId;

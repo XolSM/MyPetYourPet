@@ -19,7 +19,7 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String fullName, String email) {
+    public User(String fullName, String email) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;

@@ -16,14 +16,14 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
 
     public PetSeekerUser() {}
     public PetSeekerUser(Long id, String fullName, String email, CustomerInfo customerInfo) {
-        super(id,fullName, email);
+        super(fullName, email);
         this.customerInfo = customerInfo;
     }
     public
     PetSeekerUser(Long id, String fullName, String email, String governmentID,
                          int age, String gender, Date registerDate, String location,
                          String profileStatus) {
-        super(id,fullName, email);
+        super(fullName, email);
         this.customerInfo = new CustomerInfo(governmentID, age, gender,
                 registerDate, location, profileStatus);
 
