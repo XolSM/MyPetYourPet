@@ -76,9 +76,7 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
     }
 
     @Override
-    public void viewProfile() {
-
-    }
+    public void viewProfile() {}
 
     @Override
     public void deleteAccount(String email) {
