@@ -20,5 +20,6 @@ public interface PetRepository  extends JpaRepository<Pet, Long> {
     List<Pet> findPetListByPetNameAndCustomerId(String petName, Long customerId); //Fix, this should be
     Optional<List<Pet>> findPetListByCustomerId(Long customerId);
     List<Pet> findPetListByPetProfileStatus(PetProfileStatus petProfileStatus);
+
     void deletePetByPetId(Long petId);
 }

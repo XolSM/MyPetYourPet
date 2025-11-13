@@ -71,9 +71,10 @@ public class PetController {
         //return "redirect:/petProfile/" + petId;
     }
 
+    //TO UPDATE -------------------------------------------------------------------------------
     @PostMapping(value = "/{petId}/petPicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updatePetPicture(@PathVariable Long petId,
-                                              @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> updatePetPicture(@RequestPart("petId") Long petId,
+                                              @RequestPart("file") MultipartFile file) {
         if(file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "No file uploaded."));
         }
@@ -107,11 +108,17 @@ public class PetController {
         //return "redirect:/profile/" + petId;
     }
 
-    @GetMapping(value = "/{customerId}{petName}/getPets")
-    public List<Pet> petList(@RequestParam(required = false) Long customerId, String petName,
-                             PetProfileStatus petProfileStatus){
-        return petService.petList(customerId, petName, petProfileStatus);
+
+
+    @GetMapping(value = "/getAllPets")
+    public List<Pet> allPetsList(){
+        return petRepository.findAll();
     }
+
+//    @GetMapping(value = "/getAllPets")
+//    public List<Pet> allPetsList(PetProfileStatus petProfileStatus){
+//        return petService.getListOfPets(petProfileStatus);
+//    }
 
     @DeleteMapping("/{petId}/deletePet")
     public ResponseEntity<Map<String, String>> deletePet(@PathVariable("petId") Long petId){
@@ -128,6 +135,12 @@ public class PetController {
     @GetMapping(value = "/{petId}/getPet")
     public Pet petListing(@PathVariable Long petId){
         return petService.getPetById(petId);
+    }
+
+    @GetMapping(value = "/{customerId}{petName}/getPets")
+    public List<Pet> ownerPetList(@RequestParam(required = false) Long customerId, String petName,
+                                  PetProfileStatus petProfileStatus){
+        return petService.petList(customerId, petName, petProfileStatus);
     }
 
     //OR
