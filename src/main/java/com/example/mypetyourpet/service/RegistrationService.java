@@ -5,19 +5,21 @@ import com.example.mypetyourpet.model.PetOwnerUser;
 import com.example.mypetyourpet.model.PetSeekerUser;
 import com.example.mypetyourpet.repository.PetOwnerUserRepository;
 import com.example.mypetyourpet.repository.PetSeekerUserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
+@AllArgsConstructor
 public class RegistrationService {
     private final PetOwnerUserRepository petOwnerUserRepository;
     private final PetSeekerUserRepository petSeekerUserRepository;
 
-    public RegistrationService(PetOwnerUserRepository petOwnerUserRepository, PetSeekerUserRepository petSeekerUserRepository) {
-        this.petOwnerUserRepository = petOwnerUserRepository;
-        this.petSeekerUserRepository = petSeekerUserRepository;
-    }
+//    public RegistrationService(PetOwnerUserRepository petOwnerUserRepository, PetSeekerUserRepository petSeekerUserRepository) {
+//        this.petOwnerUserRepository = petOwnerUserRepository;
+//        this.petSeekerUserRepository = petSeekerUserRepository;
+//    }
     // private final PetSeekerUserRepository petSeekerUserRepository; // later when I do the Seeker version
 
 
@@ -32,15 +34,17 @@ public class RegistrationService {
                 0L,  // id is auto-generated; we ignore uid here
                 request.getFullName(),
                 request.getEmail(),
-                request.getProfilePic(),
-                request.getAge() != null ? request.getAge() : 0,
+                request.getPhone(),
+                request.getAge() != null ? request.getAge() : 0, //WE SHOULD VERIFY IF LESS THAN 18
                 request.getGender(),
                 request.getGovernmentId(),
                 request.getLocation(),
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
                 new Date(),            // registerDate now
-                "PetOwner"
+                "PetOwner",
+                request.getProfilePic(),
+                request.getProfilePicturePublicId()
         );
 
         return petOwnerUserRepository.save(owner);
@@ -57,7 +61,7 @@ public class RegistrationService {
                 0L,  // id is auto-generated; we will set it up when we send UID from frontend
                 request.getFullName(),
                 request.getEmail(),
-                request.getProfilePic(),
+                request.getPhone(),
                 request.getAge() != null ? request.getAge() : 0,
                 request.getGender(),
                 request.getGovernmentId(),
@@ -65,9 +69,11 @@ public class RegistrationService {
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
                 new Date(),            // registerDate now
-                "PetSeeker" //might have to set it up to retrieve from the request somehow
+                "PetSeeker", //might have to set it up to retrieve from the request somehow
                 // or maybe we don't need to add it to the request because we set it here and
                 //the frontend calls the specific endpoint based on the role
+                request.getProfilePic(),
+                request.getProfilePicturePublicId()
         );
         return petSeekerUserRepository.save(seeker);
     }

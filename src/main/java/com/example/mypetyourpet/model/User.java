@@ -17,12 +17,23 @@ public class User {
     @Column(name = "profile_picture")
     protected String profilePicture;
 
+    @Column(name = "profile_picture_public_id")
+    protected String profilePicturePublicId;
+
     public User() {}
 
-    public User(Long id, String fullName, String email) {
+    public User(long uid, String fullName, String email) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
+    }
+
+    public User(long uid, String fullName, String email, String profilePicture, String profilePicturePublicId) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.profilePicture = profilePicture;
+        this.profilePicturePublicId = profilePicturePublicId;
     }
 
     public Long getId() {
@@ -57,6 +68,11 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
+    public String getProfilePicturePublicId() {
+        return profilePicturePublicId;
+    }
 
-
+    public void setProfilePicturePublicId(String profilePicturePublicId) {
+        this.profilePicturePublicId = profilePicturePublicId;
+    }
 }

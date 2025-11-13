@@ -15,37 +15,40 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
     private String customerType = "PetSeeker";
 
     public PetSeekerUser() {}
-    public PetSeekerUser(Long id, String fullName, String email, CustomerInfo customerInfo) {
-        super(id,fullName, email);
+    public PetSeekerUser(Long id, String fullName, String email, CustomerInfo customerInfoString,
+                         String profilePicture, String profilePicturePublicId) {
+        super(id, fullName, email, profilePicture, profilePicturePublicId);
         this.customerInfo = customerInfo;
     }
     public
-    PetSeekerUser(Long id, String fullName, String email, String governmentID,
+    PetSeekerUser(Long id, String fullName, String email, String phone, String governmentID,
                          int age, String gender, Date registerDate, String location,
-                         String profileStatus) {
-        super(id,fullName, email);
-        this.customerInfo = new CustomerInfo(governmentID, age, gender,
+                         String profileStatus, String profilePicture, String profilePicturePublicId) {
+        super(id, fullName, email, profilePicture, profilePicturePublicId);
+        this.customerInfo = new CustomerInfo(phone, governmentID, age, gender,
                 registerDate, location, profileStatus);
 
 
     }
 
     @Override
-    public void createAccount(long uid, String fullName, String email, String profilePic,
+    public void createAccount(long uid, String fullName, String email, String phone,
                               int age, String gender, String governmentId, String location, String status,
-                              double ratingAvg, Date registerDate, String customerType) {
+                              double ratingAvg, Date registerDate, String customerType, String profilePicture, String profilePicturePublicId) {
 
         this.setFullName(fullName); //calling the methods in the User class
         this.setEmail(email);
 
         //creating a customer info instance with the data
-        this.customerInfo = new CustomerInfo(
+        this.customerInfo = new CustomerInfo(phone,
                 governmentId, age, gender, registerDate, location, status
                 //I may have to add ratings and comments and set it as null and 0 when the customer is first
                 //created
         );
         this.customerType = customerType != null ? customerType : "PetSeeker";
         //Need to create enums later for status
+        this.profilePicturePublicId = profilePicturePublicId;
+        this.profilePicture = profilePicture;
 
     }
 

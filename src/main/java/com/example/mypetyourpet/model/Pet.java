@@ -24,27 +24,28 @@ public class Pet {
     private String petBehavior;
     @Column(nullable = false)
     private boolean dewormingUpToDate;
-    @Column(nullable = false)
-    private boolean vaccinationUpToDate;
-    @Column(nullable = false)
+    @Column(nullable = true) //------------------------------------------
+    private boolean vaccinationUpToDate;//------------------------------------------
+    @Column(nullable = true)//------------------------------------------
     private double petFee;
-    @Column(nullable = false)
+    @Column(nullable = true)//------------------------------------------
     private String profilePictureUrl;
-    @Column(nullable = false)
+    @Column(nullable = true)//------------------------------------------
     private String profilePicturePublicId; //cloudinary
-    @Column(nullable = false)
+    @Column(nullable = true)
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pet_user"))
 //    @OnDelete(action = OnDeleteAction.CASCADE) // Hibernate-level cascade
     private Long customerId;
     @Column(nullable = false)
-    private PetProfileStatus petProfileStatus;
+//    private PetProfileStatus petProfileStatus;
+    private boolean petProfileStatus;
 
     public Pet(){}
     public Pet(String petName, int petAge, boolean petGender,
                String petBreed, String petBehavior, boolean dewormingUpToDate,
                boolean vaccinationUpToDate, double petFee, String profilePicture, String profilePicturePublicId,
-               Long customerId, PetProfileStatus petProfileStatus){
+               Long customerId, boolean petProfileStatus){
         this.petName = petName;
         this.petAge = petAge;
         this.petGender = petGender;
@@ -62,7 +63,7 @@ public class Pet {
     public Pet(String petName, int petAge, boolean petGender,
                String petBreed, String petBehavior, boolean dewormingUpToDate,
                boolean vaccinationUpToDate, double petFee, String profilePicture, String profilePicturePublicId,
-            PetProfileStatus petProfileStatus){
+            boolean petProfileStatus){
         this.petName = petName;
         this.petAge = petAge;
         this.petGender = petGender;
@@ -73,6 +74,21 @@ public class Pet {
         this.petFee = petFee;
         this.profilePictureUrl = profilePicture;
         this.profilePicturePublicId = profilePicturePublicId;
+        this.petProfileStatus = petProfileStatus;
+    }
+
+    public Pet(String petName, int petAge, boolean petGender,
+               String petBreed, String petBehavior, boolean dewormingUpToDate,
+               boolean vaccinationUpToDate, double petFee,
+               boolean petProfileStatus){
+        this.petName = petName;
+        this.petAge = petAge;
+        this.petGender = petGender;
+        this.petBreed = petBreed;
+        this.petBehavior = petBehavior;
+        this.dewormingUpToDate = dewormingUpToDate;
+        this.vaccinationUpToDate = vaccinationUpToDate;
+        this.petFee = petFee;
         this.petProfileStatus = petProfileStatus;
     }
 
@@ -179,11 +195,11 @@ public class Pet {
         this.customerId = customerId;
     }
 
-    public PetProfileStatus getPetProfileStatus() {
+    public boolean getPetProfileStatus() {
         return petProfileStatus;
     }
 
-    public void setPetProfileStatus(PetProfileStatus petProfileStatus) {
+    public void setPetProfileStatus(boolean petProfileStatus) {
         this.petProfileStatus = petProfileStatus;
     }
 

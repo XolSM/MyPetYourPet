@@ -29,6 +29,10 @@ public class PetService {
         return petRepository.save(pet);
     }
 
+    public List<Pet> getListOfPets(PetProfileStatus petProfileStatus) {
+        return petRepository.findPetListByPetProfileStatus(petProfileStatus);
+    }
+
     public List<Pet> petList(Long customerId, String petName, PetProfileStatus petProfileStatus) {
         if(customerId == null){
             return petRepository.findPetListByPetProfileStatus(petProfileStatus);

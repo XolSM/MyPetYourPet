@@ -15,18 +15,17 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
     private String customerType = "PetOwner";
 
     public PetOwnerUser() {}
-    public PetOwnerUser(Long id, String fullName, String email, CustomerInfo customerInfo) {
-        super(id,fullName, email);
+    public PetOwnerUser(Long id, String fullName, String email, CustomerInfo customerInfo,
+                        String profilePicture, String profilePicturePublicId) {
+        super(id, fullName, email, profilePicture, profilePicturePublicId);
         this.customerInfo = customerInfo;
     }
-    public PetOwnerUser(Long id, String fullName, String email, String governmentID,
+    public PetOwnerUser(long id, String fullName, String email, String phone, String governmentID,
                         int age, String gender, Date registerDate, String location,
-                        String profileStatus) {
-        super(id,fullName, email);
-        this.customerInfo = new CustomerInfo(governmentID, age, gender,
+                        String profileStatus, String profilePicture, String profilePicturePublicId) {
+        super(id, fullName, email, profilePicture, profilePicturePublicId);
+        this.customerInfo = new CustomerInfo(phone, governmentID, age, gender,
                 registerDate, location, profileStatus);
-
-
     }
 
     public CustomerInfo getCustomerInfo() {
@@ -56,23 +55,24 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
 
     }
     @Override
-    public void createAccount(long uid, String fullName, String email, String profilePic,
+    public void createAccount(long uid, String fullName, String email, String phone,
                               int age, String gender, String governmentId, String location, String status,
-                              double ratingAvg, Date registerDate, String customerType) {
+                              double ratingAvg, Date registerDate, String customerType, String profilePicture, String profilePicturePublicId) {
         // store the information in teh database
 
         this.setFullName(fullName); //calling the methods in the User class
         this.setEmail(email);
-
         //creating a customer info instance with the data
         this.customerInfo = new CustomerInfo(
-                governmentId, age, gender, registerDate, location, status
+                phone, governmentId, age, gender, registerDate, location, status
                 //I may have to add ratings and comments and set it as null and 0 when the customer is first
                 //created
         );
         this.customerType = customerType != null ? customerType : "PetOwner"; //condition ? valueIfTrue : valueIfFalse
                                                                              //java ternary operator
         // we do not talk directly with the database here. we do that in repository
+        this.profilePicturePublicId = profilePicturePublicId;
+        this.profilePicture = profilePicture;
     }
 
     @Override

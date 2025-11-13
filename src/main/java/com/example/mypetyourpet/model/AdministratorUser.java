@@ -13,7 +13,7 @@ public class AdministratorUser extends User implements Administrator{
     public AdministratorUser() {}
 
     public AdministratorUser(Long id, String fullName, String email) {
-        super(id,fullName, email);
+        super(id, fullName, email);
     }
 
     @Override
