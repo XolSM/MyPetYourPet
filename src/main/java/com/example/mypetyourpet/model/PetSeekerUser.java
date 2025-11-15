@@ -32,7 +32,7 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
     }
 
     @Override
-    public void createAccount(long uid, String fullName, String email, String phone,
+    public void createAccount(long uid, String firebaseUID, String fullName, String email, String phone,
                               int age, String gender, String governmentId, String location, String status,
                               double ratingAvg, Date registerDate, String customerType, String profilePicture, String profilePicturePublicId) {
 

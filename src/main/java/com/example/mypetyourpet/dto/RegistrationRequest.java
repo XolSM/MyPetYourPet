@@ -2,6 +2,7 @@ package com.example.mypetyourpet.dto;
 
 public class RegistrationRequest {
     //setUp firebase ID later
+    private String firebaseUID;
     private String role;
     private String fullName;
     private String email;
@@ -14,8 +15,9 @@ public class RegistrationRequest {
     private Integer age;
 
     public RegistrationRequest(){ }
-    public RegistrationRequest(String fullName, String email, String phone, int age,String gender,
+    public RegistrationRequest(String firebaseUID, String fullName, String email, String phone, int age, String gender,
                                String governmentId, String location){
+        this.firebaseUID = firebaseUID; //might not need this here??
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -24,9 +26,10 @@ public class RegistrationRequest {
         this.governmentId = governmentId;
         this.location = location;
     }
-    public RegistrationRequest(String fullName, String email, String phone, int age,String gender,
-                        String governmentId, String location, String ProfilePic,
-                        String ProfilePicturePublicId){
+    public RegistrationRequest(String firebaseUID, String fullName, String email, String phone, int age, String gender,
+                               String governmentId, String location, String ProfilePic,
+                               String ProfilePicturePublicId){
+        this.firebaseUID = firebaseUID;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -37,6 +40,10 @@ public class RegistrationRequest {
         this.profilePic = ProfilePic;
         this.profilePicturePublicId = ProfilePicturePublicId;
     }
+
+    public String getFirebaseUID() {return firebaseUID;}
+
+    public void setFirebaseUID(String firebaseUID) {this.firebaseUID = firebaseUID;}
 
     public String getPhone() {
         return phone;

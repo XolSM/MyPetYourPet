@@ -55,13 +55,14 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
 
     }
     @Override
-    public void createAccount(long uid, String fullName, String email, String phone,
+    public void createAccount(long uid, String firebaseUID, String fullName, String email, String phone,
                               int age, String gender, String governmentId, String location, String status,
                               double ratingAvg, Date registerDate, String customerType, String profilePicture, String profilePicturePublicId) {
         // store the information in teh database
 
         this.setFullName(fullName); //calling the methods in the User class
         this.setEmail(email);
+        this.setFirebaseUID(firebaseUID);
         //creating a customer info instance with the data
         this.customerInfo = new CustomerInfo(
                 phone, governmentId, age, gender, registerDate, location, status
