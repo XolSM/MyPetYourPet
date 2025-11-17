@@ -11,5 +11,11 @@ public interface PetOwnerUserRepository extends JpaRepository<PetOwnerUser, Long
     Optional<PetOwnerUser> findByEmail(String email); //CHANGE TO ID
     Optional<PetOwnerUser> findById(Long id);
 
+    Optional<PetOwnerUser> findByFirebaseUID(String uid);
+
     void deleteByEmail(String email); //delete account
+
+    boolean existsByFirebaseUID(String firebaseUID) ;
+
+
 }
