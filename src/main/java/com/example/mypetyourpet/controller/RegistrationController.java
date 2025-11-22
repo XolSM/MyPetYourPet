@@ -43,6 +43,12 @@ public class RegistrationController {
     public ResponseEntity<?> registerPetOwner
             (@RequestPart("OwnerRegistrationRequest") RegistrationRequest ownerRegistrationRequest,
              @RequestPart("file") MultipartFile file) {
+
+//        for debugging
+//        System.out.println("Owner DTO: " + ownerRegistrationRequest);
+//        System.out.println("File name: " + file.getOriginalFilename());
+//        System.out.println("File empty: " + file.isEmpty());
+
         if(file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Pet picture is required."));
         }

@@ -9,6 +9,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+
+    @Column(/*set nullable = false later*/ unique = true)
+    protected String firebaseUID;
+
     @Column(name = "full_name")
     protected String fullName;
 
@@ -75,4 +79,14 @@ public class User {
     public void setProfilePicturePublicId(String profilePicturePublicId) {
         this.profilePicturePublicId = profilePicturePublicId;
     }
+
+
+    public String getFirebaseUID() {
+        return firebaseUID;
+    }
+
+    public void setFirebaseUID(String firebaseUID) {
+        this.firebaseUID = firebaseUID;
+    }
+
 }

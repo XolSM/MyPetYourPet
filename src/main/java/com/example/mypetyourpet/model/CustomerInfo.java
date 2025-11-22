@@ -37,7 +37,7 @@ public class CustomerInfo{
     public CustomerInfo() {}
 
     public CustomerInfo(String phone, String governmentID, int age, String gender,
-                        Date registerDate, String location, String profileStatus) {
+                        Date registerDate, String location, String profileStatus,String bio) {
         this.phone = phone;
         this.governmentID = governmentID;
         this.age = age;
@@ -45,6 +45,7 @@ public class CustomerInfo{
         this.registerDate = registerDate;
         this.location = location;
         this.profileStatus = profileStatus;
+        this.bio = bio;
     }
 
     public String getPhone() {

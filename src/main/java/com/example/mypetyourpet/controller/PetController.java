@@ -33,6 +33,49 @@ public class PetController {
 //        //return "redirect:/petProfile/" + petId;
 //    }
 
+    //update pet
+    @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updatePet(@RequestPart("petId") Long petId,
+                                       @RequestPart("behavior") String behavior,
+                                       @RequestPart("dewormingUpToDate") boolean dewormingUpToDate,
+                                       @RequestPart("vaccinationUpToDate") boolean vaccinationUpToDate,
+                                       @RequestPart("petFee") double petFee,
+                                       @RequestPart("petProfileStatus") boolean petProfileStatus,
+                                       @RequestPart(value = "file", required = false) MultipartFile file) {
+        Pet petToUpdate = petRepository.findPetByPetId(petId).orElseThrow();
+        petToUpdate.setPetBehavior(behavior);
+        petToUpdate.setDewormingUpToDate(dewormingUpToDate);
+        petToUpdate.setVaccinationUpToDate(vaccinationUpToDate);
+        petToUpdate.setPetFee(petFee);
+        petToUpdate.setPetProfileStatus(petProfileStatus);
+
+        if(file != null) {
+            if(file.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Pet picture file is empty."));
+            }
+
+            Long maxFileSize = 2*1024*1024L;
+            if(file.getSize() > maxFileSize) {
+                return ResponseEntity.badRequest().body(Map.of("error", "File size is too large, should be less than 2MB."));
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Invalid image format."));
+            }
+
+            if (petToUpdate.getProfilePicturePublicId() != null) {
+                fileStorageService.deleteOldImage(petToUpdate.getProfilePicturePublicId());
+            }
+
+            Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+            petToUpdate.setProfilePicture(uploadResult.get("url"));
+            petToUpdate.setProfilePicturePublicId(uploadResult.get("publicId"));
+        }
+        petRepository.save(petToUpdate);
+        return ResponseEntity.ok(petToUpdate);
+    }
+
     @PostMapping(value = "/createPet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createPet(@RequestPart("Pet") Pet pet,
                                          @RequestPart("file") MultipartFile file) {
