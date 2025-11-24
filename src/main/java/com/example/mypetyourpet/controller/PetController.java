@@ -180,10 +180,14 @@ public class PetController {
         return petService.getPetById(petId);
     }
 
-    @GetMapping(value = "/{customerId}{petName}/getPets")
-    public List<Pet> ownerPetList(@RequestParam(required = false) Long customerId, String petName,
+    @GetMapping(value = "/{customerId}{petName}{petProfileStatus}/getPets")
+    public List<Pet> petList(@RequestParam(required = false) Long customerId, String petName,
                                   PetProfileStatus petProfileStatus){
         return petService.petList(customerId, petName, petProfileStatus);
+    }
+    @GetMapping("/{customerId}/getOwnerPets")
+    public List<Pet> ownerPetList(@PathVariable Long customerId){
+        return petService.petOwnerList(customerId);
     }
 
     //OR

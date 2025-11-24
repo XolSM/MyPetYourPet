@@ -34,11 +34,15 @@ public class PetService {
     }
 
     public List<Pet> petList(Long customerId, String petName, PetProfileStatus petProfileStatus) {
-        if(customerId == null){
-            return petRepository.findPetListByPetProfileStatus(petProfileStatus);
+        return petRepository.findPetListByPetProfileStatus(petProfileStatus);
+    }
+
+    public List<Pet> petOwnerList(Long customerId) {
+        if(!petRepository.findPetListByCustomerId(customerId).isPresent()){
+            throw new EntityNotFoundException("Error finding your pet(s)");
         }
-        else{
-            return petRepository.findPetListByPetNameAndCustomerId(petName, customerId);
+        else {
+            return petRepository.findPetListByCustomerId(customerId).get();
         }
     }
 

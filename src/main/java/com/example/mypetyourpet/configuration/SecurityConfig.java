@@ -78,9 +78,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Let preflight CORS requests through
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
+                        .requestMatchers("/api/v1/testing").authenticated()//change to the one below
                         // Protect your API
-                        .requestMatchers("/api/v1/**").authenticated() //for now only this format is protected
+//                        .requestMatchers("/api/v1/**").authenticated() //for now only this format is protected
                         //we'll use this one to protect all endpoints
                         //we'll leave register public because new user cannot yet get a token
 //                        .requestMatchers("/api/**").authenticated()
