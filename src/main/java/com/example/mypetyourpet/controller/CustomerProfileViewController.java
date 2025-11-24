@@ -2,6 +2,7 @@ package com.example.mypetyourpet.controller;
 
 import com.example.mypetyourpet.dto.CustomerProfileViewResponse;
 import com.example.mypetyourpet.model.PetOwnerUser;
+import com.example.mypetyourpet.model.PetSeekerUser;
 import com.example.mypetyourpet.model.User;
 import com.example.mypetyourpet.repository.PetOwnerUserRepository;
 import com.example.mypetyourpet.repository.PetSeekerUserRepository;
@@ -155,8 +156,15 @@ public class CustomerProfileViewController {
         return ResponseEntity.ok(dtoProfile);
     }
 
-    @GetMapping("/getCustomerDetails/{id}")
-    public ResponseEntity<PetOwnerUser> getCustomerById(@PathVariable Long id) {
+    @GetMapping("/getSeekerDetails/{id}")
+    public ResponseEntity<PetSeekerUser> getSeekerById(@PathVariable Long id) {
+        Optional<PetSeekerUser> customer = petSeekerUserRepository.findById(id);
+        return customer.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/getOwnerDetails/{id}")
+    public ResponseEntity<PetOwnerUser> getOwnerById(@PathVariable Long id) {
         Optional<PetOwnerUser> customer = petOwnerUserRepository.findById(id);
         return customer.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
