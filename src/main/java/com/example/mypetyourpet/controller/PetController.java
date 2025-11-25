@@ -33,21 +33,24 @@ public class PetController {
 //        //return "redirect:/petProfile/" + petId;
 //    }
 
-    //update pet
-    @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updatePet(@RequestPart("petId") Long petId,
+
+    /*@RequestPart("petId") Long petId,
                                        @RequestPart("behavior") String behavior,
                                        @RequestPart("dewormingUpToDate") boolean dewormingUpToDate,
                                        @RequestPart("vaccinationUpToDate") boolean vaccinationUpToDate,
                                        @RequestPart("petFee") double petFee,
-                                       @RequestPart("petProfileStatus") boolean petProfileStatus,
+                                       @RequestPart("petProfileStatus") boolean petProfileStatus,*/
+    //update pet
+    @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updatePet(@RequestPart("Pet") Pet pet,
                                        @RequestPart(value = "file", required = false) MultipartFile file) {
-        Pet petToUpdate = petRepository.findPetByPetId(petId).orElseThrow();
-        petToUpdate.setPetBehavior(behavior);
-        petToUpdate.setDewormingUpToDate(dewormingUpToDate);
-        petToUpdate.setVaccinationUpToDate(vaccinationUpToDate);
-        petToUpdate.setPetFee(petFee);
-        petToUpdate.setPetProfileStatus(petProfileStatus);
+        Pet petToUpdate = petRepository.findPetByPetId(pet.getPetId()).orElseThrow();
+        petToUpdate.setPetAge(pet.getPetAge());
+        petToUpdate.setPetBehavior(pet.getPetBehavior());
+        petToUpdate.setDewormingUpToDate(pet.isDewormingUpToDate());
+        petToUpdate.setVaccinationUpToDate(pet.isVaccinationUpToDate());
+        petToUpdate.setPetFee(pet.getPetFee());
+        petToUpdate.setPetProfileStatus(pet.getPetProfileStatus());
 
         if(file != null) {
             if(file.isEmpty()) {
