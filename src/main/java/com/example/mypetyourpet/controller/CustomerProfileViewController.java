@@ -106,48 +106,17 @@ public class CustomerProfileViewController {
 
     }
 
-//    @GetMapping("/userRole")
-//    public ResponseEntity<?> getUserRole(@RequestHeader("Authorization") String authHeader) {
-//
-//        try {
-//            System.out.println("AUTH HEADER: [" + authHeader + "]");
-//
-//            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//                System.out.println("No Bearer token found in Authorization header");
-//                return ResponseEntity.status(401).body("Missing or invalid Authorization header");
-//            }
-//
-//            // safer than .replace()
-//            String token = authHeader.substring(7).trim(); // after "Bearer "
-//            System.out.println("RAW TOKEN: [" + token + "]");
-//            System.out.println("TOKEN LENGTH: " + token.length());
-//
-//            FirebaseToken decoded = firebaseAuth.verifyIdToken(token);
-//
-//            String uid = decoded.getUid();
-//
-//            String role;
-//            if (petOwnerUserRepository.existsByFirebaseUID(uid)) {
-//                role = "owner";
-//            } else if (petSeekerUserRepository.existsByFirebaseUID(uid)) {
-//                role = "seeker";
-//            } else {
-//                return ResponseEntity.status(404).body(
-//                        Map.of("message", "No user found for this UID")
-//                );
-//            }
-//
-//            return ResponseEntity.ok(Map.of("role", role));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(401)
-//                    .body("Invalid or expired token");
-//        }
-//    }
+        @DeleteMapping("/deleteSeeker")
+        public ResponseEntity<?> deleteSeeker(@RequestParam String email) {
+            deleteAccountService.deleteSeeker(email);
+            return ResponseEntity.ok("Seeker account deleted.");
+        }
 
-
-
+    @DeleteMapping("/deleteOwner")
+    public ResponseEntity<?> deleteOwner(@RequestParam String email) {
+        deleteAccountService.deleteOwner(email);
+        return ResponseEntity.ok("Owner account deleted.");
+    }
 
 
     @GetMapping("/petSeekerProfile")
@@ -188,12 +157,4 @@ public class CustomerProfileViewController {
         return ResponseEntity.ok(dtoProfile);
     }
 
-
-
-    @DeleteMapping("/deleteAccount")
-    public ResponseEntity<String> deletePetSeekerProfile(@RequestParam String email) {
-
-        deleteAccountService.delete(email);
-        return ResponseEntity.ok("Account deleted Successfully");
-    }
 }

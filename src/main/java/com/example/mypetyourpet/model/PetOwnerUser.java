@@ -90,4 +90,9 @@ public class PetOwnerUser extends User implements PetOwner, CustomerMethods {
     public void updateUserProfile() {
 
     }
+
+    @Override
+    public void setDeletedAt(Date deletedAt) {
+
+    }
 }

@@ -2,6 +2,7 @@ package com.example.mypetyourpet.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Embeddable
@@ -34,6 +35,9 @@ public class CustomerInfo{
     @Column(name = "rating_comments")
     private String ratingComments;
 
+
+    private LocalDateTime deletedAt;
+
     public CustomerInfo() {}
 
     public CustomerInfo(String phone, String governmentID, int age, String gender,
@@ -47,6 +51,10 @@ public class CustomerInfo{
         this.profileStatus = profileStatus;
         this.bio = bio;
     }
+
+    public LocalDateTime getDeletedAt() {return deletedAt;}
+
+    public void setDeletedAt(LocalDateTime deletedAt) {this.deletedAt = deletedAt;}
 
     public String getPhone() {
         return phone;
