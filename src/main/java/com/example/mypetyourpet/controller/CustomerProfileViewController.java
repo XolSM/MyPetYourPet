@@ -119,9 +119,6 @@ public class CustomerProfileViewController {
     }
 
 
-
-
-
     @GetMapping("/petSeekerProfile")
     public ResponseEntity<CustomerProfileViewResponse> viewSeekerProfile(@RequestParam String email) {
         CustomerProfileViewResponse dtoProfile = customerProfileViewService.viewSeekerProfile(email);
@@ -160,12 +157,4 @@ public class CustomerProfileViewController {
         return ResponseEntity.ok(dtoProfile);
     }
 
-
-
-//    @DeleteMapping("/deleteAccount")
-//    public ResponseEntity<String> deletePetSeekerProfile(@RequestParam String email) {
-//
-//        deleteAccountService.delete(email);
-//        return ResponseEntity.ok("Account deleted Successfully");
-//    }
 }

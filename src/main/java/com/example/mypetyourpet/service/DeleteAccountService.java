@@ -25,26 +25,6 @@ public class DeleteAccountService {
         this.petRepository = petRepository;
     }
 
-//    @Transactional
-//    public void  delete(String email) {
-//        boolean deleted = false;
-//
-//        if (petSeekerUserRepository.existsByEmail(email)) {
-//            petSeekerUserRepository.deleteByEmail(email);
-//            deleted = true;
-//        }
-//
-//        if (petOwnerUserRepository.existsByEmail(email)) {
-//            petOwnerUserRepository.deleteByEmail(email);
-//            deleted = true;
-//        }
-//
-//        if (!deleted) {
-//            throw new IllegalStateException("Account with email " + email + " not found");
-//        }
-//
-//    }
-
     @Transactional
     public void deleteSeeker(String email) {
 
