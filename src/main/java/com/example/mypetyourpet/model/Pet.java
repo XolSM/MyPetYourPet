@@ -3,6 +3,9 @@ package com.example.mypetyourpet.model;
 import jakarta.persistence.*;
 
 
+import java.util.Date;
+
+
 @Entity
 @Table(name = "pets",
         uniqueConstraints = {
@@ -40,6 +43,9 @@ public class Pet {
     @Column(nullable = false)
 //    private PetProfileStatus petProfileStatus;
     private boolean petProfileStatus;
+
+    @Column
+    private Date deletedAt;
 
     public Pet(){}
     public Pet(String petName, int petAge, boolean petGender,
@@ -207,7 +213,15 @@ public class Pet {
         return profilePicturePublicId;
     }
 
-    public void setProfilePicturePublicId(String profilePicturePublicId) {
-        this.profilePicturePublicId = profilePicturePublicId;
+    public void setProfilePicturePublicId(String profilePicturePublicId) {this.profilePicturePublicId = profilePicturePublicId;}
+
+    public Date getDeletedAt() {return deletedAt;}
+
+    public void setDeletedAt(Date deletedAt) {this.deletedAt = deletedAt;}
+
+    public void setProfilePictureUrl(String profilePictureUrl) {this.profilePictureUrl = profilePictureUrl;}
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
     }
 }

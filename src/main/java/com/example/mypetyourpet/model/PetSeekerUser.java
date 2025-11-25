@@ -88,6 +88,12 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
     }
 
     @Override
+    public void setDeletedAt(Date deletedAt) {
+
+    }
+
+
+    @Override
     public void searchPetListings() {
 
     }

@@ -11,4 +11,7 @@ public interface CustomerMethods {
     public void openClaim();
     public void cancelPetReservation();
     public void updateUserProfile();
+
+    public void setDeletedAt(Date deletedAt);
+
 }
