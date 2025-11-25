@@ -1,59 +1,38 @@
 package com.example.mypetyourpet.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
+@Getter
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true) // Prevents JSON conversion issues
 public class PetReservation {
     @Id
-    private Long petResId; // Primary Key
+    private Long petResId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
-    private String petResStatus; // Pending, Rejected, Confirmed-Pending, Confirmed-Paid
-    private Long petId; // Foreign Key -> Pet.petId
-    private Long customerId; // Seeker -  Foreign Key -> Customer. customerId
+
+    private String petResStatus;
+    private Long petId;
+    private Long customerId;
     private double serviceFee;
     private double serviceAmount;
 
     public PetReservation() {}
-    public PetReservation(Long petResId, Date dateCreated, Date startDate,
-                          Date endDate, String petResStatus, Long petId,
-                          Long customerId, double serviceFee,
-                          double serviceAmount){
-        this.petResId = petResId;
-        this.dateCreated = dateCreated;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.petResStatus = petResStatus;
-        this.petId = petId;
-        this.customerId = customerId;
-        this.serviceFee = serviceFee;
-        this.serviceAmount = serviceAmount;
-
-    }
-
-    public void updateStatus(){
-
-
-
-    }
-
-    public void completePayment(){
-
-
-
-    }
-    public void setpetResId(Long id) {
-        this.petResId = id;
-    }
-
-    public Long getpetResId() {
-        return petResId;
-    }
-
     public Long getPetResId() {
         return petResId;
     }
@@ -62,67 +41,29 @@ public class PetReservation {
         this.petResId = petResId;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
+    // Standard getters & setters only
+    public Date getDateCreated() { return dateCreated; }
+    public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-    public Date getStartDate() {
-        return startDate;
-    }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+    public String getPetResStatus() { return petResStatus; }
+    public void setPetResStatus(String petResStatus) { this.petResStatus = petResStatus; }
 
-    public Date getEndDate() {
-        return endDate;
-    }
+    public Long getPetId() { return petId; }
+    public void setPetId(Long petId) { this.petId = petId; }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
 
-    public String getPetResStatus() {
-        return petResStatus;
-    }
+    public double getServiceFee() { return serviceFee; }
+    public void setServiceFee(double serviceFee) { this.serviceFee = serviceFee; }
 
-    public void setPetResStatus(String petResStatus) {
-        this.petResStatus = petResStatus;
-    }
+    public double getServiceAmount() { return serviceAmount; }
+    public void setServiceAmount(double serviceAmount) { this.serviceAmount = serviceAmount; }
 
-    public Long getPetId() {
-        return petId;
-    }
-
-    public void setPetId(Long petId) {
-        this.petId = petId;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long seekerCustomerId) {
-        this.customerId = seekerCustomerId;
-    }
-
-    public double getServiceFee() {
-        return serviceFee;
-    }
-
-    public void setServiceFee(double serviceFee) {
-        this.serviceFee = serviceFee;
-    }
-
-    public double getServiceAmount() {
-        return serviceAmount;
-    }
-
-    public void setServiceAmount(double serviceAmount) {
-        this.serviceAmount = serviceAmount;
-    }
 }
