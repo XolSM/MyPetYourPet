@@ -12,11 +12,11 @@ import java.util.List;
 
 @Service
 public class ReservationService {
-    private final PetReservationRepository repository;
+    private final PetReservationRepository petReservationRepository;
     @Autowired
     private PetRepository petRepository;
     public ReservationService(PetReservationRepository repository, PetRepository petRepository) {
-        this.repository = repository;
+        this.petReservationRepository = repository;
         this.petRepository = petRepository;
     }
 
@@ -29,7 +29,7 @@ public class ReservationService {
         if (reservation.getPetResStatus() == null) {
             reservation.setPetResStatus("Pending");
         }
-        return repository.save(reservation);
+        return petReservationRepository.save(reservation);
     }
 
     // For Pet Seeker - view their reservations
@@ -37,12 +37,12 @@ public class ReservationService {
         return repository.findByCustomerId(customerId);
     }*/
     public List<PetReservation> getReservationsBySeeker(Long customerId) {
-        List<PetReservation> reservations = repository.findByCustomerId(customerId);
+        List<PetReservation> reservations = petReservationRepository.findByCustomerId(customerId);
 
         for (PetReservation res : reservations) {
             Pet pet = petRepository.findById(res.getPetId()).orElse(null);
             if (pet != null) {
-                res.setPetName(pet.getPetName());  // Adding pet name dynamically to populate resevation pet name
+                res.setPetName(pet.getPetName());  // Adding pet name dynamically to populate reservation pet name
                 res.setPetImageUrl(pet.getProfilePicture());
             }
         }
@@ -51,10 +51,10 @@ public class ReservationService {
 
     // For Pet Owner - view reservations on their pets
     public List<PetReservation> getReservationsByPet(Long petId) {
-        return repository.findByPetId(petId);
+        return petReservationRepository.findByPetId(petId);
     }
 
-    public PetReservation updateReservationStatus(Long id, String status) {
+    public PetReservation updateReservationStatus(int id, String status) {
         List<String> allowedStatuses = List.of(
                 "Pending",
                 "Rejected",
@@ -66,14 +66,14 @@ public class ReservationService {
             throw new IllegalArgumentException("Invalid reservation status");
         }
 
-        PetReservation reservation = repository.findById(id)
+        PetReservation reservation = petReservationRepository.findById((long) id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
         reservation.setPetResStatus(status);
-        return repository.save(reservation);
+        return petReservationRepository.save(reservation);
     }
     public List<PetReservation> getReservationsForOwner(Long ownerId) {
-        List<PetReservation> reservations = repository.findReservationsForOwner(ownerId);
+        List<PetReservation> reservations = petReservationRepository.findReservationsForOwner(ownerId);
 
         for (PetReservation res : reservations) {
             Pet pet = petRepository.findById(res.getPetId()).orElse(null);
@@ -83,6 +83,17 @@ public class ReservationService {
             }
         }
         return reservations;
+    }
+
+    //find customerId to create transaction
+    public int getCustomerId(int reservationId) {
+        PetReservation r = petReservationRepository.findById((long) reservationId)
+                .orElseThrow(() -> new IllegalStateException("Reservation not found"));
+
+        return Math.toIntExact(r.getCustomerId());
+
+        // I was having some very silly issues here. some id's are int and others are long so you go and change a bunch
+        //to int and then more errors, you change them to long i was just tired
     }
 
 }
