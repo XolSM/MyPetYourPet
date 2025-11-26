@@ -2,8 +2,7 @@ package com.example.mypetyourpet.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +11,12 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
+@Table(name = "pet_reservation")
 @JsonIgnoreProperties(ignoreUnknown = true) // Prevents JSON conversion issues
 public class PetReservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //This will auto-generate IDs
+    @Column(name = "pet_res_id")
     private Long petResId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,12 +27,18 @@ public class PetReservation {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
-
+    @Column(name = "pet_res_status")
     private String petResStatus;
     private Long petId;
     private Long customerId;
     private double serviceFee;
     private double serviceAmount;
+    @Transient
+    private String petName;
+    @Transient
+    private String petImage;
+    @Transient
+    private String petImageUrl;
 
     public PetReservation() {}
     public Long getPetResId() {
@@ -66,4 +74,14 @@ public class PetReservation {
     public double getServiceAmount() { return serviceAmount; }
     public void setServiceAmount(double serviceAmount) { this.serviceAmount = serviceAmount; }
 
+    public String getPetName() {
+        return petName;
+    }
+
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
+
+    public String getPetImageUrl() { return petImageUrl; }
+    public void setPetImageUrl(String petImageUrl) { this.petImageUrl = petImageUrl; }
 }

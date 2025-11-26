@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/reservations")
+@CrossOrigin(origins = "http://localhost:3000")
 @AllArgsConstructor
 public class ReservationController {
 
@@ -24,7 +26,8 @@ public class ReservationController {
     }
 
     //Seeker views their reservations
-    @GetMapping("/seeker/{customerId}")
+    //@GetMapping("/seeker/{customerId}")
+    @GetMapping("/seeker/view/{customerId}")
     public ResponseEntity<List<PetReservation>> getReservationsForSeeker(@PathVariable Long customerId) {
         return ResponseEntity.ok(service.getReservationsBySeeker(customerId));
     }
@@ -33,6 +36,19 @@ public class ReservationController {
     @GetMapping("/owner/pet/{petId}")
     public ResponseEntity<List<PetReservation>> getReservationsForPet(@PathVariable Long petId) {
         return ResponseEntity.ok(service.getReservationsByPet(petId));
+    }
+
+    @PatchMapping("/updateStatus/{id}")
+    public ResponseEntity<PetReservation> updateStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> request
+    ) {
+        return ResponseEntity.ok(service.updateReservationStatus(id, request.get("status")));
+    }
+
+    @GetMapping("/owner/view/{ownerId}")
+    public ResponseEntity<List<PetReservation>> getReservationsForOwner(@PathVariable Long ownerId) {
+        return ResponseEntity.ok(service.getReservationsForOwner(ownerId));
     }
 
 }
