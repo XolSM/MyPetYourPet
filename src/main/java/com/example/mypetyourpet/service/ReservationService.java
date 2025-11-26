@@ -55,6 +55,17 @@ public class ReservationService {
     }
 
     public PetReservation updateReservationStatus(Long id, String status) {
+        List<String> allowedStatuses = List.of(
+                "Pending",
+                "Rejected",
+                "Confirmed - Pending Payment",
+                "Confirmed - Paid"
+        );
+
+        if (!allowedStatuses.contains(status)) {
+            throw new IllegalArgumentException("Invalid reservation status");
+        }
+
         PetReservation reservation = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
