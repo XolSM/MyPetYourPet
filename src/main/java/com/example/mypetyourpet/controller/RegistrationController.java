@@ -41,8 +41,14 @@ public class RegistrationController {
 
     @PostMapping(value = "/petOwner", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> registerPetOwner
-            (@RequestPart("OwnerRegistrationRequest") RegistrationRequest ownerRegistrationRequest,
+            (@RequestPart("RegistrationRequest") RegistrationRequest ownerRegistrationRequest,
              @RequestPart("file") MultipartFile file) {
+
+//        for debugging
+//        System.out.println("Owner DTO: " + ownerRegistrationRequest);
+//        System.out.println("File name: " + file.getOriginalFilename());
+//        System.out.println("File empty: " + file.isEmpty());
+
         if(file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Pet picture is required."));
         }
@@ -69,7 +75,7 @@ public class RegistrationController {
 
     @PostMapping(value = "/petSeeker", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> registerPetSeeker
-            (@RequestPart("OwnerRegistrationRequest") RegistrationRequest seekerRegistrationRequest,
+            (@RequestPart("RegistrationRequest") RegistrationRequest seekerRegistrationRequest,
              @RequestPart("file") MultipartFile file) {
         if(file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Pet picture is required."));

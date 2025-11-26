@@ -13,5 +13,7 @@ public interface PetSeekerUserRepository extends JpaRepository<PetSeekerUser, Lo
 
     void deleteByEmail(String email); //delete account
 
+    //boolean existsByFirebaseUID(String firebaseUID);
+
 
 }

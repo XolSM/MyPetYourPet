@@ -33,6 +33,52 @@ public class PetController {
 //        //return "redirect:/petProfile/" + petId;
 //    }
 
+
+    /*@RequestPart("petId") Long petId,
+                                       @RequestPart("behavior") String behavior,
+                                       @RequestPart("dewormingUpToDate") boolean dewormingUpToDate,
+                                       @RequestPart("vaccinationUpToDate") boolean vaccinationUpToDate,
+                                       @RequestPart("petFee") double petFee,
+                                       @RequestPart("petProfileStatus") boolean petProfileStatus,*/
+    //update pet
+    @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updatePet(@RequestPart("Pet") Pet pet,
+                                       @RequestPart(value = "file", required = false) MultipartFile file) {
+        Pet petToUpdate = petRepository.findPetByPetId(pet.getPetId()).orElseThrow();
+        petToUpdate.setPetAge(pet.getPetAge());
+        petToUpdate.setPetBehavior(pet.getPetBehavior());
+        petToUpdate.setDewormingUpToDate(pet.isDewormingUpToDate());
+        petToUpdate.setVaccinationUpToDate(pet.isVaccinationUpToDate());
+        petToUpdate.setPetFee(pet.getPetFee());
+        petToUpdate.setPetProfileStatus(pet.getPetProfileStatus());
+
+        if(file != null) {
+            if(file.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Pet picture file is empty."));
+            }
+
+            Long maxFileSize = 2*1024*1024L;
+            if(file.getSize() > maxFileSize) {
+                return ResponseEntity.badRequest().body(Map.of("error", "File size is too large, should be less than 2MB."));
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Invalid image format."));
+            }
+
+            if (petToUpdate.getProfilePicturePublicId() != null) {
+                fileStorageService.deleteOldImage(petToUpdate.getProfilePicturePublicId());
+            }
+
+            Map<String, String> uploadResult = fileStorageService.uploadFile(file);
+            petToUpdate.setProfilePicture(uploadResult.get("url"));
+            petToUpdate.setProfilePicturePublicId(uploadResult.get("publicId"));
+        }
+        petRepository.save(petToUpdate);
+        return ResponseEntity.ok(petToUpdate);
+    }
+
     @PostMapping(value = "/createPet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createPet(@RequestPart("Pet") Pet pet,
                                          @RequestPart("file") MultipartFile file) {
@@ -137,10 +183,14 @@ public class PetController {
         return petService.getPetById(petId);
     }
 
-    @GetMapping(value = "/{customerId}{petName}/getPets")
-    public List<Pet> ownerPetList(@RequestParam(required = false) Long customerId, String petName,
+    @GetMapping(value = "/{customerId}{petName}{petProfileStatus}/getPets")
+    public List<Pet> petList(@RequestParam(required = false) Long customerId, String petName,
                                   PetProfileStatus petProfileStatus){
         return petService.petList(customerId, petName, petProfileStatus);
+    }
+    @GetMapping("/{customerId}/getOwnerPets")
+    public List<Pet> ownerPetList(@PathVariable Long customerId){
+        return petService.petOwnerList(customerId);
     }
 
     //OR

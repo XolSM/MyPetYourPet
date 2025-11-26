@@ -9,6 +9,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+
+    @Column(/*set nullable = false later*/ unique = true)
+    protected String firebaseUID;
+
     @Column(name = "full_name")
     protected String fullName;
 
@@ -36,43 +40,29 @@ public class User {
         this.profilePicturePublicId = profilePicturePublicId;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
-    public String getFullName() {
-        return fullName;
-    }
+    public String getFullName() {return fullName;}
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    public void setFullName(String fullName) {this.fullName = fullName;}
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() {return email;}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setEmail(String email) {this.email = email;}
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+    public String getProfilePicture() {return profilePicture;}
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+    public void setProfilePicture(String profilePicture) {this.profilePicture = profilePicture;}
 
-    public String getProfilePicturePublicId() {
-        return profilePicturePublicId;
-    }
+    public String getProfilePicturePublicId() {return profilePicturePublicId;}
 
-    public void setProfilePicturePublicId(String profilePicturePublicId) {
-        this.profilePicturePublicId = profilePicturePublicId;
-    }
+    public void setProfilePicturePublicId(String profilePicturePublicId) {this.profilePicturePublicId = profilePicturePublicId;}
+
+
+    public String getFirebaseUID() {return firebaseUID;}
+
+    public void setFirebaseUID(String firebaseUID) {this.firebaseUID = firebaseUID;}
+
 }

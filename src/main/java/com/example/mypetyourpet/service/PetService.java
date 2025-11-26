@@ -34,11 +34,15 @@ public class PetService {
     }
 
     public List<Pet> petList(Long customerId, String petName, PetProfileStatus petProfileStatus) {
-        if(customerId == null){
-            return petRepository.findPetListByPetProfileStatus(petProfileStatus);
+        return petRepository.findPetListByPetProfileStatus(petProfileStatus);
+    }
+
+    public List<Pet> petOwnerList(Long customerId) {
+        if(!petRepository.findPetListByCustomerId(customerId).isPresent()){
+            throw new EntityNotFoundException("Error finding your pet(s)");
         }
-        else{
-            return petRepository.findPetListByPetNameAndCustomerId(petName, customerId);
+        else {
+            return petRepository.findPetListByCustomerId(customerId).get();
         }
     }
 
@@ -60,7 +64,8 @@ public class PetService {
         if(!petRepository.findPetByCustomerId(petId).isPresent()){
             throw new EntityNotFoundException("Error finding your pet");
         }
-        Pet existingPet = petRepository.findPetByCustomerId(petId).get();
+        Pet existingPet = petRepository.findPetByPetId(petId).get();
+        existingPet.setPetAge(updatedPet.getPetAge());
         existingPet.setPetBehavior(updatedPet.getPetBehavior());
         existingPet.setDewormingUpToDate(updatedPet.isDewormingUpToDate());
         existingPet.setVaccinationUpToDate(updatedPet.isVaccinationUpToDate());
@@ -73,7 +78,7 @@ public class PetService {
         if(!petRepository.findPetByPetId(petId).isPresent()){
             throw new EntityNotFoundException("Error finding your pet");
         }
-        Pet existingPet = petRepository.findPetByCustomerId(petId).get();
+        Pet existingPet = petRepository.findPetByPetId(petId).get();
         existingPet.setProfilePicture(imageUrl);
         return petRepository.save(existingPet);
     }

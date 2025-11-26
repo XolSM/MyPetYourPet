@@ -32,6 +32,7 @@ public class RegistrationService {
         PetOwnerUser owner = new PetOwnerUser();
         owner.createAccount(
                 0L,  // id is auto-generated; we ignore uid here
+                request.getFirebaseUID(),
                 request.getFullName(),
                 request.getEmail(),
                 request.getPhone(),
@@ -41,7 +42,8 @@ public class RegistrationService {
                 request.getLocation(),
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
-                new Date(),            // registerDate now
+                new Date(),
+                request.getBio(),// registerDate now
                 "PetOwner",
                 request.getProfilePic(),
                 request.getProfilePicturePublicId()
@@ -59,6 +61,7 @@ public class RegistrationService {
         PetSeekerUser seeker = new PetSeekerUser();
         seeker.createAccount(
                 0L,  // id is auto-generated; we will set it up when we send UID from frontend
+                request.getFirebaseUID(),
                 request.getFullName(),
                 request.getEmail(),
                 request.getPhone(),
@@ -68,9 +71,10 @@ public class RegistrationService {
                 request.getLocation(),
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
-                new Date(),            // registerDate now
+                new Date(), // registerDate now
+                request.getBio(),
                 "PetSeeker", //might have to set it up to retrieve from the request somehow
-                // or maybe we don't need to add it to the request because we set it here and
+                //,or maybe we don't need to add it to the request because we set it here and
                 //the frontend calls the specific endpoint based on the role
                 request.getProfilePic(),
                 request.getProfilePicturePublicId()
