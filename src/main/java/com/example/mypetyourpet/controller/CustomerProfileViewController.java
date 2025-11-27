@@ -6,6 +6,7 @@ import com.example.mypetyourpet.model.PetSeekerUser;
 import com.example.mypetyourpet.model.User;
 import com.example.mypetyourpet.repository.PetOwnerUserRepository;
 import com.example.mypetyourpet.repository.PetSeekerUserRepository;
+import com.example.mypetyourpet.repository.SupportUserRepository;
 import com.example.mypetyourpet.service.CustomerProfileViewService;
 import com.example.mypetyourpet.service.DeleteAccountService;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ public class CustomerProfileViewController {
     private final DeleteAccountService deleteAccountService; //to delete an account
     private final PetOwnerUserRepository petOwnerUserRepository;
     private final PetSeekerUserRepository petSeekerUserRepository;
+    private final SupportUserRepository supportUserRepository;
 
 //    public CustomerProfileViewController(CustomerProfileViewService customerProfileViewService, DeleteAccountService deleteAccountService) {
 //        this.customerProfileViewService = customerProfileViewService;
@@ -79,7 +81,13 @@ public class CustomerProfileViewController {
                 }
                //retreive id here and send to frontend to keep track of who is logged in
 
+            } else if (supportUserRepository.existsByFirebaseUID(uid)) {
+                User user = supportUserRepository.findByFirebaseUID(uid).get();
+                id = user.getId();
+                role = "administrator";
+
             } else {
+
                 // no record in either table
                 return ResponseEntity.status(404)
                         .body(Map.of(
