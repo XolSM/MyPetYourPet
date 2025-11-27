@@ -11,7 +11,10 @@ public class CustomerInfo{
    // private String customerType; // PetOwner, PetSeeker
 
     @Column(name = "governmentid")
-    private String governmentID;
+    private String governmentID; //url
+
+    @Column(name = "backgroundCheck")
+    private String backgroundCheck; //url
 
     private int age;
 
@@ -40,10 +43,11 @@ public class CustomerInfo{
 
     public CustomerInfo() {}
 
-    public CustomerInfo(String phone, String governmentID, int age, String gender,
+    public CustomerInfo(String phone, String governmentID, String backgroundCheck, int age, String gender,
                         Date registerDate, String location, String profileStatus,String bio) {
         this.phone = phone;
         this.governmentID = governmentID;
+        this.backgroundCheck = backgroundCheck;
         this.age = age;
         this.gender = gender;
         this.registerDate = registerDate;
@@ -78,6 +82,14 @@ public class CustomerInfo{
 
     public void setGovernmentID(String governmentID) {
         this.governmentID = governmentID;
+    }
+
+    public String getBackgroundCheck() {
+        return backgroundCheck;
+    }
+
+    public void setBackgroundCheck(String backgroundCheck) {
+        this.backgroundCheck = backgroundCheck;
     }
 
     public int getAge() {
