@@ -39,6 +39,7 @@ public class RegistrationService {
                 request.getAge() != null ? request.getAge() : 0, //WE SHOULD VERIFY IF LESS THAN 18
                 request.getGender(),
                 request.getGovernmentId(),
+                request.getBackgroundCheck(),
                 request.getLocation(),
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
@@ -68,6 +69,7 @@ public class RegistrationService {
                 request.getAge() != null ? request.getAge() : 0,
                 request.getGender(),
                 request.getGovernmentId(),
+                request.getBackgroundCheck(),
                 request.getLocation(),
                 "PENDING VERIFICATION",              // profileStatus
                 0.0,                   // ratingAvg
