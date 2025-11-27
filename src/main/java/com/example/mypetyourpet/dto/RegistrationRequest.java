@@ -7,7 +7,8 @@ public class RegistrationRequest {
     private String fullName;
     private String email;
     private String phone;
-    private String governmentId;
+    private String governmentId;//url
+    private String backgroundCheck;
     private String location;
     private String gender;
     private String profilePic;
@@ -17,7 +18,7 @@ public class RegistrationRequest {
 
     public RegistrationRequest(){ }
     public RegistrationRequest(String firebaseUID, String fullName, String email, String phone, int age, String gender,
-                               String governmentId, String location, String bio){
+                               String governmentId, String backgroundCheck, String location, String bio){
         this.firebaseUID = firebaseUID; //might not need this here??
         this.fullName = fullName;
         this.email = email;
@@ -25,6 +26,7 @@ public class RegistrationRequest {
         this.age = age;
         this.gender = gender;
         this.governmentId = governmentId;
+        this.backgroundCheck = backgroundCheck;
         this.location = location;
         this.bio = bio;
     }
@@ -86,6 +88,14 @@ public class RegistrationRequest {
 
     public void setGovernmentId(String governmentId) {
         this.governmentId = governmentId;
+    }
+
+    public String getBackgroundCheck() {
+        return backgroundCheck;
+    }
+
+    public void setBackgroundCheck(String backgroundCheck) {
+        this.backgroundCheck = backgroundCheck;
     }
 
     public String getLocation() {

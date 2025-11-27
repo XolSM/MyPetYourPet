@@ -21,18 +21,18 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
         this.customerInfo = customerInfo;
     }
     public
-    PetSeekerUser(Long id, String fullName, String email, String phone, String governmentID,
+    PetSeekerUser(Long id, String fullName, String email, String phone, String governmentID, String backgroundCheck,
                          int age, String gender, Date registerDate, String location,
                          String profileStatus, String profilePicture, String profilePicturePublicId, String bio) {
         super(id, fullName, email, profilePicture, profilePicturePublicId);
-        this.customerInfo = new CustomerInfo(phone, governmentID, age, gender,
+        this.customerInfo = new CustomerInfo(phone, governmentID, backgroundCheck,age, gender,
                 registerDate, location, profileStatus,bio);
 
 
     }
 
     public void createAccount(long uid, String firebaseUID, String fullName, String email, String phone,
-                              int age, String gender, String governmentId, String location, String status,
+                              int age, String gender, String governmentId, String backgroundCheck, String location, String status,
                               double ratingAvg, Date registerDate,String bio, String customerType, String profilePicture, String profilePicturePublicId) {
         // store the information in teh database
 
@@ -41,7 +41,7 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
         this.setFirebaseUID(firebaseUID);
         //creating a customer info instance with the data
         this.customerInfo = new CustomerInfo(
-                phone, governmentId, age, gender, registerDate, location, status,bio
+                phone, governmentId, backgroundCheck, age, gender, registerDate, location, status,bio
                 //I may have to add ratings and comments and set it as null and 0 when the customer is first
                 //created
         );
@@ -53,6 +53,7 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
     }
 
     public CustomerInfo getCustomerInfo() {return customerInfo;}
+
     public String getCustomerType() {return customerType;}
 
     @Override

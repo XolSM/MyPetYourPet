@@ -1,5 +1,6 @@
 package com.example.mypetyourpet.repository;
 
+import com.example.mypetyourpet.model.Pet;
 import com.example.mypetyourpet.model.PetSeekerUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +11,7 @@ public interface PetSeekerUserRepository extends JpaRepository<PetSeekerUser, Lo
 
     // to fetch seeker info
     Optional<PetSeekerUser> findByEmail(String email);
-
+    Optional<PetSeekerUser> findById(Long id);
     void deleteByEmail(String email); //delete account
 
     //boolean existsByFirebaseUID(String firebaseUID);
