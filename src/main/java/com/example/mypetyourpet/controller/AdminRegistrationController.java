@@ -34,7 +34,8 @@ public class AdminRegistrationController {
 
             // Save admin user
             AdministratorUser admin = new AdministratorUser();
-            admin.setFirebaseuid(request.getFirebaseUID());
+            //admin.setFirebaseuid(request.getFirebaseUID());
+            admin.setFirebaseUID(request.getFirebaseUID());
             admin.setFullName(request.getFullName());
             admin.setEmail(request.getEmail());
             admin.setUserType(request.getUserType()); // default "Administrator"

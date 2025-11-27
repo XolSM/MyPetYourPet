@@ -9,8 +9,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-
-    @Column(/*set nullable = false later*/ unique = true)
+    @Column(unique = true)
     protected String firebaseUID;
 
     @Column(name = "full_name")
@@ -27,19 +26,18 @@ public class User {
     public User() {}
 
     public User(long uid, String fullName, String email) {
-        this.id = id;
+        this.id = uid;
         this.fullName = fullName;
         this.email = email;
     }
 
     public User(long uid, String fullName, String email, String profilePicture, String profilePicturePublicId) {
-        this.id = id;
+        this.id = uid;
         this.fullName = fullName;
         this.email = email;
         this.profilePicture = profilePicture;
         this.profilePicturePublicId = profilePicturePublicId;
     }
-
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
