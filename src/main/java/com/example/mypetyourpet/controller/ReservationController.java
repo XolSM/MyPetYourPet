@@ -40,7 +40,7 @@ public class ReservationController {
 
     @PatchMapping("/updateStatus/{id}")
     public ResponseEntity<PetReservation> updateStatus(
-            @PathVariable Long id,
+            @PathVariable int id,
             @RequestBody Map<String, String> request
     ) {
         return ResponseEntity.ok(service.updateReservationStatus(id, request.get("status")));

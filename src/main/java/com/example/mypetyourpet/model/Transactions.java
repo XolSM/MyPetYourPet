@@ -1,8 +1,7 @@
 package com.example.mypetyourpet.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -12,23 +11,35 @@ public class Transactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
-    private int petResId; //
-    private int customerId; //PetSeeker or Pet Owner
-    private int claimId;
-    private String transactionType;
+    @Column(name = "pet_res_id")
+
+    private int petResId;
+    @Column(name = "customer_id")
+    private Integer customerId;// Nullable
+    @Column(name = "claim_id")
+    private Integer claimId; // Nullable
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
     private Date transactionDate;
     private double transactionAmount;
-    private String transactionStatus;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus transactionStatus;
+
+    @Column(columnDefinition = "TEXT")
     private String note;
+
     private String paymentMethod;
-    private int gatewayTransactionRef;
+
+    private String gatewayTransactionRef; // Change to String
 
 
     public Transactions() {}
     public Transactions(Long transactionId, int petResId, int customerId,
-                        int claimId, String transactionType, Date transactionDate,
-                        double transactionAmount, String transactionStatus, String note,
-                        String paymentMethod, int gatewayTransactionRef) {
+                        int claimId, TransactionType transactionType, Date transactionDate,
+                        double transactionAmount, TransactionStatus transactionStatus, String note,
+                        String paymentMethod, String gatewayTransactionRef) {
         this.transactionId = transactionId;
         this.petResId = petResId;
         this.customerId = customerId;
@@ -45,14 +56,8 @@ public class Transactions {
 
     public void returnPayment() {
 
-
-
-
     }
     public void depositPayment(){
-
-
-
 
     }
 
@@ -72,27 +77,27 @@ public class Transactions {
         this.petResId = petResId;
     }
 
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
-    public int getClaimId() {
+    public Integer getClaimId() {
         return claimId;
     }
 
-    public void setClaimId(int claimId) {
+    public void setClaimId(Integer claimId) {
         this.claimId = claimId;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
@@ -112,11 +117,11 @@ public class Transactions {
         this.transactionAmount = transactionAmount;
     }
 
-    public String getTransactionStatus() {
+    public TransactionStatus getTransactionStatus() {
         return transactionStatus;
     }
 
-    public void setTransactionStatus(String transactionStatus) {
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
         this.transactionStatus = transactionStatus;
     }
 
@@ -136,11 +141,99 @@ public class Transactions {
         this.paymentMethod = paymentMethod;
     }
 
-    public int getGatewayTransactionRef() {
+    public String getGatewayTransactionRef() {
         return gatewayTransactionRef;
     }
 
-    public void setGatewayTransactionRef(int gatewayTransactionRef) {
+    public void setGatewayTransactionRef(String gatewayTransactionRef) {
         this.gatewayTransactionRef = gatewayTransactionRef;
     }
+
+    //    public Long getTransactionId() {
+//        return transactionId;
+//    }
+//
+//    public void setTransactionId(Long transactionId) {
+//        this.transactionId = transactionId;
+//    }
+//
+//    public int getPetResId() {
+//        return petResId;
+//    }
+//
+//    public void setPetResId(int petResId) {
+//        this.petResId = petResId;
+//    }
+//
+//    public int getCustomerId() {
+//        return customerId;
+//    }
+//
+//    public void setCustomerId(int customerId) {
+//        this.customerId = customerId;
+//    }
+//
+//    public int getClaimId() {
+//        return claimId;
+//    }
+//
+//    public void setClaimId(int claimId) {
+//        this.claimId = claimId;
+//    }
+//
+//    public String getTransactionType() {
+//        return transactionType;
+//    }
+//
+//    public void setTransactionType(String transactionType) {
+//        this.transactionType = transactionType;
+//    }
+//
+//    public Date getTransactionDate() {
+//        return transactionDate;
+//    }
+//
+//    public void setTransactionDate(Date transactionDate) {
+//        this.transactionDate = transactionDate;
+//    }
+//
+//    public double getTransactionAmount() {
+//        return transactionAmount;
+//    }
+//
+//    public void setTransactionAmount(double transactionAmount) {
+//        this.transactionAmount = transactionAmount;
+//    }
+//
+//    public String getTransactionStatus() {
+//        return transactionStatus;
+//    }
+//
+//    public void setTransactionStatus(String transactionStatus) {
+//        this.transactionStatus = transactionStatus;
+//    }
+//
+//    public String getNote() {
+//        return note;
+//    }
+//
+//    public void setNote(String note) {
+//        this.note = note;
+//    }
+//
+//    public String getPaymentMethod() {
+//        return paymentMethod;
+//    }
+//
+//    public void setPaymentMethod(String paymentMethod) {
+//        this.paymentMethod = paymentMethod;
+//    }
+//
+//    public int getGatewayTransactionRef() {
+//        return gatewayTransactionRef;
+//    }
+//
+//    public void setGatewayTransactionRef(int gatewayTransactionRef) {
+//        this.gatewayTransactionRef = gatewayTransactionRef;
+//    }
 }
