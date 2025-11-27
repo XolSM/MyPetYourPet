@@ -18,12 +18,14 @@ public class CustomerDTO {
     private String governmentID;
     private String registerDate;
     private String customerType;
+    private String profilePicture;
 
     public static CustomerDTO fromUser(User u) {
         CustomerDTO dto = new CustomerDTO();
         dto.setId(u.getId());
         dto.setFullName(u.getFullName());
         dto.setEmail(u.getEmail());
+        dto.setProfilePicture(u.getProfilePicture());
 
         CustomerInfo info = null;
 
