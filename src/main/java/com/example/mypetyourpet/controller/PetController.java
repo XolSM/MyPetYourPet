@@ -27,6 +27,9 @@ public class PetController {
     private final PetRepository petRepository;
 
 
+
+
+
     @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updatePet(@RequestPart("Pet") Pet pet,
                                        @RequestPart(value = "file", required = false) MultipartFile file) {

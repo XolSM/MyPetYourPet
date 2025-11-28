@@ -7,6 +7,7 @@ import com.example.mypetyourpet.repository.PetReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -96,4 +97,15 @@ public class ReservationService {
         //to int and then more errors, you change them to long i was just tired
     }
 
+    public boolean isPetAvailable(Long petId, Date startDate, Date endDate) {
+
+        boolean hasConflict =
+                petReservationRepository.existsByPetIdAndStartDateLessThanAndEndDateGreaterThan(
+                        petId,
+                        endDate,
+                        startDate
+                );
+
+        return !hasConflict; // available if NO conflicts
+    }
 }

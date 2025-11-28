@@ -3,9 +3,12 @@ package com.example.mypetyourpet.controller;
 import com.example.mypetyourpet.model.PetReservation;
 import com.example.mypetyourpet.service.ReservationService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +52,16 @@ public class ReservationController {
     @GetMapping("/owner/view/{ownerId}")
     public ResponseEntity<List<PetReservation>> getReservationsForOwner(@PathVariable Long ownerId) {
         return ResponseEntity.ok(service.getReservationsForOwner(ownerId));
+    }
+
+    @GetMapping("/check-availability")
+    public ResponseEntity<Map<String, Boolean>> checkAvailability(
+            @RequestParam Long petId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate
+    ) {
+        boolean available = service.isPetAvailable(petId, startDate, endDate);
+        return ResponseEntity.ok(Collections.singletonMap("available", available));
     }
 
 }
