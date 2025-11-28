@@ -49,7 +49,7 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    // 🚨 Skip applying this filter for admin API calls
+    // Skip applying this filter for admin API calls
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();

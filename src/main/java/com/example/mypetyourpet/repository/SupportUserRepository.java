@@ -9,11 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SupportUserRepository extends JpaRepository<AdministratorUser, Integer> {
+public interface SupportUserRepository extends JpaRepository<AdministratorUser, Long> {
 
     Optional<AdministratorUser> findByFirebaseUID(String firebaseUID);
 
     boolean existsByFirebaseUID(String firebaseUID) ;
 
-    Optional<Administrator> findById(Long id);
+    //Optional<Administrator> findById(Long id);
 }
+
+
+
