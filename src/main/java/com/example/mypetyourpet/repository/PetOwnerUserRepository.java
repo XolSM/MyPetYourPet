@@ -3,6 +3,7 @@ package com.example.mypetyourpet.repository;
 import com.example.mypetyourpet.model.PetOwnerUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PetOwnerUserRepository extends JpaRepository<PetOwnerUser, Long> {
@@ -17,5 +18,7 @@ public interface PetOwnerUserRepository extends JpaRepository<PetOwnerUser, Long
 
     boolean existsByFirebaseUID(String firebaseUID) ;
 
+    List<PetOwnerUser> findByCustomerInfo_ProfileStatusIgnoreCase(String profileStatus);
+    Long countByCustomerInfo_ProfileStatusIgnoreCase(String profileStatus);
 
 }
