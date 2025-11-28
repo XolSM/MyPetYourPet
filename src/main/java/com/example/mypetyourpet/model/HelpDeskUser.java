@@ -6,10 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "supportUser")
+@Table(name = "support_user")
 public class HelpDeskUser extends User implements HelpDesk{
 
-    @Column(name="userType")
+    @Column(name="user_type")
     private String userType = "HelpDesk";
 
 

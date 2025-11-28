@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "supportUser")
+@Table(name = "support_user")
 @Getter @Setter
 public class AdministratorUser extends User{
 
-    @Column(name = "userType")
+    @Column(name = "user_type")
     private String userType = "Administrator";
 
 
