@@ -16,6 +16,7 @@ public class CustomerDTO {
     private Integer age;
     private String gender;
     private String governmentID;
+    private String backgroundCheck;
     private String registerDate;
     private String customerType;
     private String profilePicture;
@@ -42,6 +43,7 @@ public class CustomerDTO {
             dto.setAge(info.getAge());
             dto.setGender(info.getGender());
             dto.setGovernmentID(info.getGovernmentID());
+            dto.setBackgroundCheck(info.getBackgroundCheck());
             dto.setRegisterDate(info.getRegisterDate() != null ? info.getRegisterDate().toString() : null);
         }
 
