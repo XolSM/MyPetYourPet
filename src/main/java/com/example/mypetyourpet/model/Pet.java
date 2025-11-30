@@ -27,21 +27,18 @@ public class Pet {
     private String petBehavior;
     @Column(nullable = false)
     private boolean dewormingUpToDate;
-    @Column(nullable = true) //------------------------------------------
-    private boolean vaccinationUpToDate;//------------------------------------------
-    @Column(nullable = true)//------------------------------------------
+    @Column(nullable = true) //----
+    private boolean vaccinationUpToDate;//----
+    @Column(nullable = true)//---
     private double petFee;
-    @Column(nullable = true)//------------------------------------------
+    @Column(nullable = true)//---
     private String profilePictureUrl;
-    @Column(nullable = true)//------------------------------------------
+    @Column(nullable = true)//-----
     private String profilePicturePublicId; //cloudinary
     @Column(nullable = true)
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pet_user"))
-//    @OnDelete(action = OnDeleteAction.CASCADE) // Hibernate-level cascade
+
     private Long customerId;
     @Column(nullable = false)
-//    private PetProfileStatus petProfileStatus;
     private boolean petProfileStatus;
 
     @Column
@@ -97,21 +94,6 @@ public class Pet {
         this.petFee = petFee;
         this.petProfileStatus = petProfileStatus;
     }
-
-//    public void updatePetProfile(Long petId, String petBehavior, boolean dewormingUpToDate,
-//                                 boolean vaccinationUpToDate, double petFee,
-//                                 String profilePicture, PetProfileStatus petProfileStatus){
-//
-//
-//
-//    }
-//
-//    public void deletePetProfile(){
-//
-//
-//
-//    }
-
 
     public void setPetId(Long id) {
         this.petId = id;

@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CloudinaryService {
 
     public String upload(MultipartFile file) {
-        // Implement actual upload logic
+
         return "https://cloudinary.com/fake-image-url";
     }
 

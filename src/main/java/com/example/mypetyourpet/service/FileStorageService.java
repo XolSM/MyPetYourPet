@@ -19,8 +19,6 @@ import java.util.Map;
 @Service
 //@RequiredArgsConstructor
 public class FileStorageService {
-//    @Value("${app.upload.dir}")
-//    private String uploadDir;
 
     private final Cloudinary cloudinary;
 
@@ -53,45 +51,4 @@ public class FileStorageService {
     }
 
 
-//    public String save(MultipartFile file, Long petId) {
-//        try{
-////            Path path = Paths.get(uploadDir + petId + ".jpg");
-//            Path path = Paths.get(uploadDir);
-//            if (!Files.exists(path)) {
-//                Files.createDirectories(path);
-//            }
-//            String filename = "pet" + petId + "_" +
-//                    System.currentTimeMillis() + ".png";
-//            Path filePath = path.resolve(filename);
-//            Files.copy(file.getInputStream(), filePath,
-//                        StandardCopyOption.REPLACE_EXISTING);
-//            return "/uploads/" + filename;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to store file", e);
-//        }
-//    }
-//
-//    public String update(MultipartFile file, Long petId, String oldImageUrl) {
-//        try{
-////            Path path = Paths.get(uploadDir + petId + ".jpg");
-//            Path path = Paths.get(uploadDir);
-//            if (!Files.exists(path)) {
-//                Files.createDirectories(path);
-//            }
-//            String filename = "pet" + petId + "_" +
-//                    System.currentTimeMillis() + ".png";
-//            Path filePath = path.resolve(filename);
-//            Files.copy(file.getInputStream(), filePath,
-//                    StandardCopyOption.REPLACE_EXISTING);
-//
-//            if(oldImageUrl != null && oldImageUrl.startsWith("/uploads/")) {
-//                Path oldImagePath = path.resolve(oldImageUrl).getFileName();
-//                Files.deleteIfExists(oldImagePath);
-//            }
-//
-//            return "/uploads/" + filename;
-//        } catch (IOException e) {
-//            throw new RuntimeException("Failed to store file", e);
-//        }
-//    }
 }

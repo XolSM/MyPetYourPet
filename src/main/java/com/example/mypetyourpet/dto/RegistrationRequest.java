@@ -1,7 +1,7 @@
 package com.example.mypetyourpet.dto;
 
 public class RegistrationRequest {
-    //setUp firebase ID later
+
     private String firebaseUID;
     private String role;
     private String fullName;

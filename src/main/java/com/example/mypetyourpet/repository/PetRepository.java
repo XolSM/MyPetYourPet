@@ -11,13 +11,9 @@ import java.util.Optional;
 @Repository
 public interface PetRepository  extends JpaRepository<Pet, Long> {
     Optional<Pet> findPetByPetNameAndCustomerId(String petName, Long customerId);
-//    Pet findPetByPetNameAndCustomerId(String petName, Long customerId);
     Optional<Pet> findPetByCustomerId(Long customerId);
     Optional<Pet> findPetByPetId(Long petId);
-//    Pet findPetByCustomerId(Long customerId);
-//    Optional<List<Pet>> findByPetProfileStatus(PetProfileStatus petProfileStatus);
 
-    List<Pet> findPetListByPetNameAndCustomerId(String petName, Long customerId); //Fix, this should be
     Optional<List<Pet>> findPetListByCustomerId(Long customerId);
     List<Pet> findPetListByPetProfileStatus(PetProfileStatus petProfileStatus);
 

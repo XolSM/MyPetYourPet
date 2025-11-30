@@ -18,10 +18,6 @@ import java.util.List;
 public class PetService {
     private final PetRepository petRepository;
 
-//    public PetService(PetRepository petRepository) {
-//        this.petRepository = petRepository;
-//    }
-
     public Pet createPet(Pet pet){
         if(petRepository.findPetByPetNameAndCustomerId(pet.getPetName(), pet.getCustomerId()).isPresent()){
             throw new DataIntegrityViolationException("This Pet is already listed");
@@ -45,20 +41,6 @@ public class PetService {
             return petRepository.findPetListByCustomerId(customerId).get();
         }
     }
-
-//    public Pet updatePet(Long petId, String petBehavior, boolean dewormingUpToDate,
-//                                 boolean vaccinationUpToDate, double petFee, PetProfileStatus petProfileStatus){
-//        if(!petRepository.findPetByCustomerId(petId).isPresent()){
-//            throw new EntityNotFoundException("Error finding your pet");
-//        }
-//        Pet existingPet = petRepository.findPetByCustomerId(petId).get();
-//        existingPet.setPetBehavior(petBehavior);
-//        existingPet.setDewormingUpToDate(dewormingUpToDate);
-//        existingPet.setVaccinationUpToDate(vaccinationUpToDate);
-//        existingPet.setPetFee(petFee);
-//        existingPet.setPetProfileStatus(petProfileStatus);
-//        return petRepository.save(existingPet);
-//    }
 
     public Pet updatePet(Long petId, Pet updatedPet){
         if(!petRepository.findPetByCustomerId(petId).isPresent()){
@@ -97,27 +79,4 @@ public class PetService {
         return petRepository.findPetByPetId(petId).get();
     }
 
-//    public Pet updatePet(Long petId, String petName, String petBehavior, boolean dewormingUpToDate,
-//                         boolean vaccinationUpToDate, double petFee, PetProfileStatus petProfileStatus,
-//                         Long customerId){
-//        if(!petRepository.findOpPetByPetNameAndCustomerId(petName, customerId).isPresent()){
-//            throw new EntityNotFoundException("Error finding your pet");
-//        }
-//        Pet existingPet = petRepository.findPetByPetNameAndCustomerId(petName, customerId);
-//        existingPet.setPetBehavior(petBehavior);
-//        existingPet.setDewormingUpToDate(dewormingUpToDate);
-//        existingPet.setVaccinationUpToDate(vaccinationUpToDate);
-//        existingPet.setPetFee(petFee);
-//        existingPet.setPetProfileStatus(petProfileStatus);
-//        return petRepository.save(existingPet);
-//    }
-//
-//    public Pet updatePetPicture(Long petId, String petName, String profilePicture, Long customerId){
-//        if(!petRepository.findOpPetByPetNameAndCustomerId(petName, customerId).isPresent()){
-//            throw new EntityNotFoundException("Error finding your pet");
-//        }
-//        Pet existingPet = petRepository.findPetByPetNameAndCustomerId(petName, customerId);
-//        existingPet.setProfilePicture(profilePicture);
-//        return petRepository.save(existingPet);
-//    }
 }

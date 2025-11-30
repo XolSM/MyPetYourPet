@@ -18,11 +18,4 @@ public interface PetSeekerUserRepository extends JpaRepository<PetSeekerUser, Lo
     Optional<PetSeekerUser> findById(Long id);
     void deleteByEmail(String email); //delete account
 
-    //boolean existsByFirebaseUID(String firebaseUID);
-//    List<PetSeekerUser> findByCustomerInfo_ProfileStatusIgnoreCase(String profileStatus);
-//    Long countByCustomerInfo_ProfileStatusIgnoreCase(String profileStatus);
-//
-//    @Query("SELECT u FROM PetSeekerUser u WHERE UPPER(u.customerInfo.profileStatus) = UPPER(:status)")
-//    List<User> findAllPending(@Param("status") String status);
-
 }

@@ -17,12 +17,6 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionsRepository;
 
-    /**
-     * Creates any type of transaction:
-     *  - seeker → platform
-     *  - platform → owner
-     *  - platform → seeker (refund)
-     */
     public Transactions createTransaction(TransactionRequest request) {
 
         Transactions t = new Transactions();
@@ -35,10 +29,10 @@ public class TransactionService {
         t.setPaymentMethod(request.getPaymentMethod());
         t.setNote(request.getNote());
 
-        // AUTO DATE — here!
+
         t.setTransactionDate(new Date());
 
-        // Fake gateway ID for now
+
         t.setGatewayTransactionRef("TX-" + UUID.randomUUID());
 
         // Default status

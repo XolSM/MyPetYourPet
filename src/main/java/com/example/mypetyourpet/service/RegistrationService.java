@@ -16,13 +16,6 @@ public class RegistrationService {
     private final PetOwnerUserRepository petOwnerUserRepository;
     private final PetSeekerUserRepository petSeekerUserRepository;
 
-//    public RegistrationService(PetOwnerUserRepository petOwnerUserRepository, PetSeekerUserRepository petSeekerUserRepository) {
-//        this.petOwnerUserRepository = petOwnerUserRepository;
-//        this.petSeekerUserRepository = petSeekerUserRepository;
-//    }
-    // private final PetSeekerUserRepository petSeekerUserRepository; // later when I do the Seeker version
-
-
     public PetOwnerUser registerPetOwner(RegistrationRequest request) {
 
         if (petOwnerUserRepository.existsByEmail(request.getEmail())) {
@@ -75,9 +68,7 @@ public class RegistrationService {
                 0.0,                   // ratingAvg
                 new Date(), // registerDate now
                 request.getBio(),
-                "PetSeeker", //might have to set it up to retrieve from the request somehow
-                //,or maybe we don't need to add it to the request because we set it here and
-                //the frontend calls the specific endpoint based on the role
+                "PetSeeker",
                 request.getProfilePic(),
                 request.getProfilePicturePublicId()
         );

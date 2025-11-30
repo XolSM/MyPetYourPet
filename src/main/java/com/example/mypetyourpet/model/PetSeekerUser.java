@@ -46,7 +46,7 @@ public class PetSeekerUser extends User implements PetSeeker, CustomerMethods{
                 //created
         );
         this.customerType = customerType != null ? customerType : "PetSeeker"; //condition ? valueIfTrue : valueIfFalse
-        //java ternary operator
+
         // we do not talk directly with the database here. we do that in repository
         this.profilePicturePublicId = profilePicturePublicId;
         this.profilePicture = profilePicture;

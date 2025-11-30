@@ -51,7 +51,6 @@
 
 package com.example.mypetyourpet.configuration;
 
-import com.example.mypetyourpet.configuration.FirebaseAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -80,8 +79,8 @@ public class SecurityConfig {
                                 // Let preflight CORS requests through
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/api/admin/**").permitAll()  // OPEN ADMIN PANEL
-                                .requestMatchers("/api/v1/testing").authenticated()//change to the one below
-                        // Protect your API
+                                .requestMatchers("/api/v1/testing").authenticated()//to change to the one below
+                        // Protect the API
 //                        .requestMatchers("/api/v1/**").authenticated() //for now only this format is protected
                         //we'll use this one to protect all endpoints
                         //we'll leave register public because new user cannot yet get a token
@@ -93,7 +92,7 @@ public class SecurityConfig {
         //  No httpBasic(), no formLogin(), we use Firebase tokens instead
         ;
 
-        // Add Firebase filter before the default username/password filter
+        // Adding Firebase filter before the default username/password filter
         http.addFilterBefore(
                 new FirebaseAuthenticationFilter(),
                 UsernamePasswordAuthenticationFilter.class
