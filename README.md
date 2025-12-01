@@ -1,4 +1,22 @@
-# MYPETYOURPET INSTALLATION GUIDE
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+# MYPETYOURPET INSTALLATION GUIDE 
 
 In this guide we will follow step-by-step how to install and run the MyPetYourPet project for Backend and Frontend.
 
@@ -53,13 +71,13 @@ git clone https://github.com/XolSM/MyPetYourPet.git
 #### ⚠️ Firebase configuration file
 - Please find the following file in the submission package: `firebase-service-account.json` and make sure to save it in the following route: myPetYourPet\src\main\resources. As this pacakage contains sensitive information, even github flags it and provides warnings not to include it in the repository.
 
-![Add Firebase Configuration File](firebase_configuration.png)
+![Add Firebase Configuration File](./README/firebase_configuration.png)
 
 After adding the `firebase-service-account.json` file, open the project in Intellij Idea.
 
 Ensure to Reload Maven dependencies
 
-![Reload Maven dependencies](maven_dependencies.png)
+![Reload Maven dependencies](./README/maven_dependencies.png)
 
 Open `Docker desktop app` and run the following command:
 ```
@@ -69,7 +87,7 @@ Docker configuration should create all containers and tables when you run the ap
 
 Make sure the containers are running after the command finishes.
 
-![Running Containers](running_containers.png)
+![Running Containers](./README/running_containers.png)
 
 ### Opening Adminer
 In any web browser 🔗 [open adminer](http://localhost:8081/)
@@ -87,22 +105,22 @@ Enter the following credentials and log in.
 | Password | `root` |
 | Database | `mypetyourpet`|
 
-![Credentials](credentials.png)
+![Credentials](./README/credentials.png)
 
 #### Importing the database.
 Select the `Import` option and load the `mypetyourpetDBConfiguration.sql` file using the `File upload` section.
 
-![Import Database](import_MySQL_file.png)
+![Import Database](./README/import_MySQL_file.png)
 
 ### Run the backend
 Once the database is imported successfully, return to Intellij Idea and RUN ▶️ the backend.
 
 **NOTE** If project can't run, verify OpenJDK is installed, the Intellij Idea will suggest and handle its installation.
 
-![Project JDK](<project_JDK.jpg>)
+![Project JDK](<./README/project_JDK.jpg>)
 
 *Suggested installation*
-![Download JDK](<download_JDK.jpg>)
+![Download JDK](<./README/download_JDK.jpg>)
 
 ## Configure Frontend
 
