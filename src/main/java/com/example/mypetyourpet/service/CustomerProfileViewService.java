@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerProfileViewService {
-   // private final CustomerProfileViewService customerProfileViewService; //don't know if I need this
+
     private final PetOwnerUserRepository petOwnerUserRepository;
     private final PetSeekerUserRepository petSeekerUserRepository; //when I do the one for Seeker profile
 
@@ -17,9 +17,6 @@ public class CustomerProfileViewService {
        this. petOwnerUserRepository = petOwnerUserRepository;
         this.petSeekerUserRepository = petSeekerUserRepository;
     }
-
-
-
 
     //we have different things to fetch for owner and user. If they are the same later, I'll merge these two methods into one later
     //Owner

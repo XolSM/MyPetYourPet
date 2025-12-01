@@ -33,15 +33,8 @@ public class CustomerProfileViewController {
     private final PetSeekerUserRepository petSeekerUserRepository;
     private final SupportUserRepository supportUserRepository;
 
-//    public CustomerProfileViewController(CustomerProfileViewService customerProfileViewService, DeleteAccountService deleteAccountService) {
-//        this.customerProfileViewService = customerProfileViewService;
-//        this.deleteAccountService = deleteAccountService;
-//    }
-
 
     //we will change all the request params to accept token and verify first
-
-
 
     //I used this to test on only one controller method. but i added the security configuration
     // and all the other methods might require a header
@@ -114,50 +107,6 @@ public class CustomerProfileViewController {
 
     }
 
-//    @GetMapping("/userRole")
-//    public ResponseEntity<?> getUserRole(@RequestHeader("Authorization") String authHeader) {
-//
-//        try {
-//            System.out.println("AUTH HEADER: [" + authHeader + "]");
-//
-//            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//                System.out.println("No Bearer token found in Authorization header");
-//                return ResponseEntity.status(401).body("Missing or invalid Authorization header");
-//            }
-//
-//            // safer than .replace()
-//            String token = authHeader.substring(7).trim(); // after "Bearer "
-//            System.out.println("RAW TOKEN: [" + token + "]");
-//            System.out.println("TOKEN LENGTH: " + token.length());
-//
-//            FirebaseToken decoded = firebaseAuth.verifyIdToken(token);
-//
-//            String uid = decoded.getUid();
-//
-//            String role;
-//            if (petOwnerUserRepository.existsByFirebaseUID(uid)) {
-//                role = "owner";
-//            } else if (petSeekerUserRepository.existsByFirebaseUID(uid)) {
-//                role = "seeker";
-//            } else {
-//                return ResponseEntity.status(404).body(
-//                        Map.of("message", "No user found for this UID")
-//                );
-//            }
-//
-//            return ResponseEntity.ok(Map.of("role", role));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(401)
-//                    .body("Invalid or expired token");
-//        }
-//    }
-
-
-
-
-
     @GetMapping("/petSeekerProfile")
     public ResponseEntity<CustomerProfileViewResponse> viewSeekerProfile(@RequestParam String email) {
         CustomerProfileViewResponse dtoProfile = customerProfileViewService.viewSeekerProfile(email);
@@ -178,32 +127,11 @@ public class CustomerProfileViewController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-//    @GetMapping("/getPetOwnerdetails/{id}")
-//    public ResponseEntity<PetOwnerUser> getCustomerById(@PathVariable Long id) {
-//        Optional<PetOwnerUser> customer = petOwnerUserRepository.findById(id);
-//        return customer.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-    //    @GetMapping("/getPetOwnerdetails/{id}")
-//    public ResponseEntity<CustomerProfileViewResponse> viewOwnerProfile(@RequestParam String email) {
-//        CustomerProfileViewResponse dtoProfile = customerProfileViewService.viewOwnerProfile(email);
-//        return ResponseEntity.ok(dtoProfile);
-//    }
-
     @GetMapping("/petOwnerProfile")
     public ResponseEntity<CustomerProfileViewResponse> viewOwnerProfile(@RequestParam String email) {
         CustomerProfileViewResponse dtoProfile = customerProfileViewService.viewOwnerProfile(email);
         return ResponseEntity.ok(dtoProfile);
     }
-
-
-
-//    @DeleteMapping("/deleteAccount")
-//    public ResponseEntity<String> deletePetSeekerProfile(@RequestParam String email) {
-//
-//        deleteAccountService.delete(email);
-//        return ResponseEntity.ok("Account deleted Successfully");
-//    }
 
     @DeleteMapping("/deleteSeeker")
     public ResponseEntity<?> deleteSeeker(@RequestParam String email) {

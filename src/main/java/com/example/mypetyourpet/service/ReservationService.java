@@ -33,10 +33,6 @@ public class ReservationService {
         return petReservationRepository.save(reservation);
     }
 
-    // For Pet Seeker - view their reservations
-    /*public List<PetReservation> getReservationsBySeeker(Long customerId) {
-        return repository.findByCustomerId(customerId);
-    }*/
     public List<PetReservation> getReservationsBySeeker(Long customerId) {
         List<PetReservation> reservations = petReservationRepository.findByCustomerId(customerId);
 
@@ -93,8 +89,6 @@ public class ReservationService {
 
         return Math.toIntExact(r.getCustomerId());
 
-        // I was having some very silly issues here. some id's are int and others are long so you go and change a bunch
-        //to int and then more errors, you change them to long i was just tired
     }
 
     public boolean isPetAvailable(Long petId, Date startDate, Date endDate) {

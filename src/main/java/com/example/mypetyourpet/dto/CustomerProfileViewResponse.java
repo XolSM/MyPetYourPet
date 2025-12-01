@@ -1,13 +1,5 @@
 package com.example.mypetyourpet.dto;
 
-/*
-public class BaseResponse{}
-public class OwnerResponse  extends BaseResponse{}
-same for Seeker response
-
-if we need different objects for user and seeker
- */
-
 public class CustomerProfileViewResponse {
 
     private String fullName;

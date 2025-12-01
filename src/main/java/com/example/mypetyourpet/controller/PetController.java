@@ -19,15 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/pets") // or /api/pets
+@RequestMapping("/api/v1/pets")
 @RequiredArgsConstructor
 public class PetController {
     private final PetService petService;
     private final FileStorageService fileStorageService;
     private final PetRepository petRepository;
-
-
-
 
 
     @PostMapping(value = "/updatePet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
